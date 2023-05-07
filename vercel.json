@@ -11,12 +11,5 @@
             "source": "/(.*)",
             "destination": "server.js"
         }
-    ],
-    "routes": [
-        {
-            "src": "/[^.]+",
-            "dest": "/",
-            "status": 200
-        }
     ]
 }
