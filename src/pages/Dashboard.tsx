@@ -42,6 +42,7 @@ export const Dashboard = () => {
                     )
                 else return null
             })}
+            {path === "/dashboard" && <div>this is a dashboad</div>}
         </Layout>
     )
 }
