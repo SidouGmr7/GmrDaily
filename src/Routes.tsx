@@ -38,7 +38,7 @@ function Routes() {
                             <Route key={index} path={link} element={components} />
                         ))}
                     </Route>
-                    <Route path='/home' element={<Home />} />
+                    <Route path='/' element={<Home />} />
                 </Switch>
             </Router>
         </div>
