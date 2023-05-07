@@ -1,1 +1,1 @@
-export const baseUrl = 'https://gmr-daily.vercel.app/'
+export const baseUrl = 'https://gmrdaily-api.vercel.app/'
