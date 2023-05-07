@@ -1,0 +1,31 @@
+{
+  "daily": [
+    {
+      "name": "sidoul",
+      "checked": [
+        {
+          "isChecked": false
+        }
+      ],
+      "id": 1
+    },
+    {
+      "name": "holla",
+      "checked": [
+        {
+          "isChecked": false
+        }
+      ],
+      "id": 2
+    },
+    {
+      "name": "hoola",
+      "checked": [
+        {
+          "isChecked": false
+        }
+      ],
+      "id": 3
+    }
+  ]
+}
