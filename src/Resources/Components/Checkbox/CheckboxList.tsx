@@ -17,11 +17,12 @@ export const CheckboxList = ({
 }: CheckboxListProps) => {
     const [value, setvalue] = useState("")
     const [loading, setLoading] = useState("")
+
     return (
         <div>
             {checkList.map((item, index) => (
                 <div key={index} className='flex flex-row items-center justify-between relative'>
-                    {true && item.id === loading && (
+                    {isFetching && item.id === loading && (
                         <ReactLoading
                             type='spin'
                             color='#6366f1'
