@@ -29,6 +29,7 @@ export const DailyList = () => {
             if (type === "remove") {
                 await deleteData(id)
             }
+            refetch()
         } catch (error) {
             refetch()
         }

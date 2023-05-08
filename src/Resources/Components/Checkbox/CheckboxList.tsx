@@ -21,16 +21,16 @@ export const CheckboxList = ({
         <div>
             {checkList.map((item, index) => (
                 <div key={index} className='flex flex-row items-center justify-between relative'>
+                    {true && item.id === loading && (
+                        <ReactLoading
+                            type='spin'
+                            color='#6366f1'
+                            height={20}
+                            width={20}
+                            className='absolute left-[-15%]'
+                        />
+                    )}
                     <List className='inline-flex items-center'>
-                        {isFetching && item.id === loading && (
-                            <ReactLoading
-                                type='spin'
-                                color='#6366f1'
-                                height={20}
-                                width={20}
-                                className='absolute left-[40%]'
-                            />
-                        )}
                         <Checkbox
                             onChange={() => {
                                 handleAction("update", item.id, item)
@@ -38,6 +38,7 @@ export const CheckboxList = ({
                             }}
                             id={item.id}
                             checked={isChecked.includes(item.id)}
+                            className=''
                         />
                         <ListItemText
                             className={`ml-10 transition-all duration-500 ${
