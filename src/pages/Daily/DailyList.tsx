@@ -2,34 +2,36 @@ import { CheckboxList } from "../../Resources/Components/Checkbox/CheckboxList"
 import { useCRUD } from "../../hooks/useCRUD"
 import moment from "moment"
 
-
 export const DailyList = () => {
-    const { data, refetch, updateData, addData, deleteData } = useCRUD()
+    const { data, refetch, isFetching, updateData, addData, deleteData } = useCRUD()
     const handleAction = async (type: string, id: string, data?: any) => {
-        if (type === "update") {
-            await updateData(id, {
-                checked: [
-                    {
-                        date: moment().format("YYYY-MM-DD"),
-                        isChecked: !data.checked[0].isChecked,
-                    },
-                ],
-            })
+        try {
+            if (type === "update") {
+                await updateData(id, {
+                    checked: [
+                        {
+                            date: moment().format("YYYY-MM-DD"),
+                            isChecked: !data.checked[0].isChecked,
+                        },
+                    ],
+                })
+            }
+            if (type === "add") {
+                await addData({
+                    name: data,
+                    checked: [
+                        {
+                            isChecked: false,
+                        },
+                    ],
+                })
+            }
+            if (type === "remove") {
+                await deleteData(id)
+            }
+        } catch (error) {
+            refetch()
         }
-        if (type === "add") {
-            await addData({
-                name: data,
-                checked: [
-                    {
-                        isChecked: false,
-                    },
-                ],
-            })
-        }
-        if (type === "remove") {
-            await deleteData(id)
-        }
-        refetch()
     }
 
     return (
@@ -48,6 +50,7 @@ export const DailyList = () => {
                         )
                         .map((item: any) => item.id)}
                     handleAction={handleAction}
+                    isFetching={isFetching}
                     canAdd
                     canRemove
                 />

@@ -4,6 +4,7 @@ import { CheckboxListProps } from "../../types/type"
 import { MdOutlineBookmarkRemove } from "react-icons/md"
 import { InputText } from "primereact/inputtext"
 import { useState } from "react"
+import ReactLoading from "react-loading"
 
 export const CheckboxList = ({
     checkList,
@@ -12,6 +13,7 @@ export const CheckboxList = ({
     isChecked,
     canAdd = false,
     canRemove = false,
+    isFetching = false,
 }: CheckboxListProps) => {
     const [value, setvalue] = useState("")
     return (
@@ -39,7 +41,10 @@ export const CheckboxList = ({
                     )}
                 </div>
             ))}
-            <div>
+            <div className="flex flex-row">
+            {/* {isFetching && (
+                <ReactLoading type='spin' color='#6366f1' height={20} width={20} className="ml-10" />
+            )} */}
                 {canAdd && (
                     <List className='inline-flex items-center'>
                         <ListItemText
