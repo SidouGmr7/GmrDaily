@@ -8,7 +8,7 @@
         "build": "tsc && vite build",
         "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview --port 8080",
-        "start": "node api/server.cjs"
+        "start": "node api/server.js"
     },
     "dependencies": {
         "@emotion/react": "^11.10.8",
