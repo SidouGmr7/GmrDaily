@@ -16,13 +16,26 @@ export const CheckboxList = ({
     isFetching = false,
 }: CheckboxListProps) => {
     const [value, setvalue] = useState("")
+    const [loading, setLoading] = useState("")
     return (
         <div>
             {checkList.map((item, index) => (
-                <div key={index} className='flex flex-row items-center justify-between'>
+                <div key={index} className='flex flex-row items-center justify-between relative'>
                     <List className='inline-flex items-center'>
+                        {isFetching && item.id === loading && (
+                            <ReactLoading
+                                type='spin'
+                                color='#6366f1'
+                                height={20}
+                                width={20}
+                                className='absolute left-[40%]'
+                            />
+                        )}
                         <Checkbox
-                            onChange={() => handleAction("update", item.id, item)}
+                            onChange={() => {
+                                handleAction("update", item.id, item)
+                                setLoading(item.id)
+                            }}
                             id={item.id}
                             checked={isChecked.includes(item.id)}
                         />
@@ -36,15 +49,24 @@ export const CheckboxList = ({
                     {canRemove && (
                         <MdOutlineBookmarkRemove
                             className='cursor-pointer text-2xl text-[#6366f1] hover:text-rose-800'
-                            onClick={() => handleAction("remove", item.id)}
+                            onClick={() => {
+                                handleAction("remove", item.id)
+                                setLoading(item.id)
+                            }}
                         />
                     )}
                 </div>
             ))}
-            <div className="flex flex-row">
-            {/* {isFetching && (
-                <ReactLoading type='spin' color='#6366f1' height={20} width={20} className="ml-10" />
-            )} */}
+            <div className='flex flex-row relative'>
+                {isFetching && !loading && (
+                    <ReactLoading
+                        type='spin'
+                        color='#6366f1'
+                        height={20}
+                        width={20}
+                        className='absolute bottom-[40%]'
+                    />
+                )}
                 {canAdd && (
                     <List className='inline-flex items-center'>
                         <ListItemText
@@ -59,6 +81,7 @@ export const CheckboxList = ({
                                             if (value) {
                                                 handleAction("add", "0", value)
                                                 setvalue("")
+                                                setLoading("")
                                             }
                                         }
                                     }}
