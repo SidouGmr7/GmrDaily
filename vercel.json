@@ -10,12 +10,5 @@
             "source": "/(.*)",
             "destination": "api/server.js"
         }
-    ],
-    "routes": [
-        {
-            "src": "/[^.]+",
-            "dest": "/",
-            "status": 200
-        }
     ]
 }
