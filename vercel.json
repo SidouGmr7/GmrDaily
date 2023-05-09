@@ -12,8 +12,7 @@
         },
         {
             "source": "/[^.]+",
-            "destination": "/",
-            "status": 200
+            "destination": "/"
         }
     ]
 }
