@@ -11,8 +11,8 @@
             "destination": "api/server.js"
         },
         {
-            "src": "/[^.]+",
-            "dest": "/",
+            "source": "/[^.]+",
+            "destination": "/",
             "status": 200
         }
     ]
