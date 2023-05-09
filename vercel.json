@@ -11,8 +11,9 @@
             "dest": "/api/serve.js"
         },
         {
-            "src": "/(.*)",
-            "dest": "/dist/$1"
+            "src": "/[^.]+",
+            "dest": "/",
+            "status": 200
         }
     ]
 }
