@@ -5,10 +5,14 @@
             "includeFiles": "db.json"
         }
     },
-    "rewrites": [
+    "routes": [
         {
-            "source": "/(.*)",
-            "destination": "api/server.js"
+            "src": "/api/.*",
+            "dest": "/api/serve.js"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/dist/$1"
         }
     ]
 }
