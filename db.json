@@ -1,31 +1,33 @@
 {
-  "daily": [
-    {
-      "name": "sidoul",
-      "checked": [
+    "daily": [
         {
-          "isChecked": false
-        }
-      ],
-      "id": 1
-    },
-    {
-      "name": "holla",
-      "checked": [
+            "name": "sidoul",
+            "checked": [
+                {
+                    "isChecked": false
+                }
+            ],
+            "id": 1
+        },
         {
-          "isChecked": false
-        }
-      ],
-      "id": 2
-    },
-    {
-      "name": "hoola",
-      "checked": [
+            "name": "holla",
+            "checked": [
+                {
+                    "isChecked": false
+                }
+            ],
+            "id": 2
+        },
         {
-          "isChecked": false
+            "name": "hoola",
+            "checked": [
+                {
+                    "isChecked": false
+                }
+            ],
+            "id": 3
         }
-      ],
-      "id": 3
-    }
-  ]
+    ],
+    "tasks": [],
+    "tree": []
 }
