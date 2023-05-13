@@ -46,7 +46,7 @@ export type CheckboxListProps = {
     canAdd: boolean
     canRemove: boolean
     isFetching: boolean
-    showState: any
+    showState?: any
 }
 
 export type CheckList = {

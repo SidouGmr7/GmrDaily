@@ -7,77 +7,12 @@ export function DailyStat(props: any) {
     const [chartOptions, setChartOptions] = useState({})
     const [dataWeek, setDataWeek] = useState<any>([])
 
-    const _data = [
-        {
-            name: "sidoul",
-            checked: [
-                {
-                    date: "2023-05-01",
-                    isChecked: true,
-                },
-                {
-                    date: "2023-05-02",
-                    isChecked: false,
-                },
-                {
-                    date: "2023-05-03",
-                    isChecked: true,
-                },
-                {
-                    date: "2023-05-04",
-                    isChecked: true,
-                },
-                {
-                    date: "2023-05-05",
-                    isChecked: false,
-                },
-                {
-                    date: "2023-05-06",
-                    isChecked: false,
-                },
-                {
-                    date: "2023-05-07",
-                    isChecked: true,
-                },
-                {
-                    date: "2023-05-08",
-                    isChecked: true,
-                },
-                {
-                    date: "2023-05-09",
-                    isChecked: false,
-                },
-                {
-                    date: "2023-05-10",
-                    isChecked: true,
-                },
-                {
-                    date: "2023-05-11",
-                    isChecked: true,
-                },
-                {
-                    date: "2023-05-12",
-                    isChecked: true,
-                },
-                {
-                    date: "2023-05-13",
-                    isChecked: false,
-                },
-                {
-                    date: "2023-05-14",
-                    isChecked: true,
-                },
-            ],
-            id: 1,
-        },
-    ]
     const calculateData = (data: any) => {
-
         let occ: number = 0
         const datas: any = []
         data.checked.forEach((item: any, index: number) => {
             let occurrence = item.isChecked ? ++occ : occ
-            if ((index + 1) % 7 === 0 || (index + 1) === data.checked.length) {
+            if ((index + 1) % 7 === 0 || index + 1 === data.checked.length) {
                 datas.push({ date: item.date, occurrence: occurrence })
                 occ = 0
             }

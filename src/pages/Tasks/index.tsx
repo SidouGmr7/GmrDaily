@@ -7,7 +7,7 @@ import { Button } from "primereact/button"
 import { InputText } from "primereact/inputtext"
 
 export const Tasks = () => {
-    const { data, refetch } = useCRUD()
+    const { data } = useCRUD()
     const [types, setTypes] = useState<any>([])
     const [value, setvalue] = useState("")
 
