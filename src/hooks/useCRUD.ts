@@ -12,10 +12,18 @@ export function useCRUD() {
     })
 
     const updateData = async (id: string, data: any) => {
-        await axios.patch(`${baseUrl}${location}/${id}`, data)
+        await axios.patch(`${baseUrl}${location}/${id}`, data, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
     }
     const addData = async (data: any) => {
-        await axios.post(`${baseUrl}${location}`, data)
+        await axios.post(`${baseUrl}${location}`, data, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
     }
     const deleteData = async (id: string) => {
         await axios.delete(`${baseUrl}${location}/${id}`)

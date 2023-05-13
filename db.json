@@ -1,33 +1,97 @@
 {
-    "daily": [
+  "daily": [
+    {
+      "name": "holla",
+      "checked": [
         {
-            "name": "sidoul",
-            "checked": [
-                {
-                    "isChecked": false
-                }
-            ],
-            "id": 1
-        },
-        {
-            "name": "holla",
-            "checked": [
-                {
-                    "isChecked": false
-                }
-            ],
-            "id": 2
-        },
-        {
-            "name": "hoola",
-            "checked": [
-                {
-                    "isChecked": false
-                }
-            ],
-            "id": 3
+          "date": "2023-05-13",
+          "isChecked": false
         }
-    ],
-    "tasks": [],
-    "tree": []
+      ],
+      "id": 2
+    },
+    {
+      "name": "hoola",
+      "checked": [
+        {
+          "date": "2023-05-13",
+          "isChecked": false
+        },
+        {
+          "date": "2023-05-14",
+          "isChecked": true
+        },
+        {
+          "date": "2023-05-15",
+          "isChecked": false
+        },
+        {
+          "date": "2023-05-16",
+          "isChecked": false
+        },
+        {
+          "date": "2023-05-17",
+          "isChecked": false
+        },
+        {
+          "date": "2023-05-18",
+          "isChecked": false
+        },
+        {
+          "date": "2023-05-18",
+          "isChecked": true
+        },
+        {
+          "date": "2023-05-19",
+          "isChecked": false
+        },
+        {
+          "date": "2023-05-20",
+          "isChecked": true
+        },
+        {
+          "date": "2023-05-21",
+          "isChecked": false
+        }
+      ],
+      "id": 3
+    },
+    {
+      "name": "h",
+      "checked": [
+        {
+          "date": "2023-05-13",
+          "isChecked": false
+        }
+      ],
+      "id": 4
+    },
+    {
+      "name": "sidou",
+      "checked": [
+        {
+          "date": "2023-05-13",
+          "isChecked": false
+        }
+      ],
+      "id": 5
+    }
+  ],
+  "tasks": [
+    {
+      "name": "sidou",
+      "date": "2023-05-13",
+      "checked": true,
+      "type": "hello",
+      "id": 1
+    },
+    {
+      "name": "k",
+      "date": "2023-05-13",
+      "checked": true,
+      "type": "hhu",
+      "id": 2
+    }
+  ],
+  "tree": []
 }
