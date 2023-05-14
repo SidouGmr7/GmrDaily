@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { Paper, List, ListItemButton, ListItemText } from "@mui/material"
 import { RiMenuUnfoldLine } from "react-icons/ri"
-import { NavBarProps } from "../../types/type"
+import { NavBarProps } from "../../types/types"
 
 export function Navbar({
     collapsedSideBar,

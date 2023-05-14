@@ -10,6 +10,7 @@ export const Tasks = () => {
     const { data } = useCRUD()
     const [types, setTypes] = useState<any>([])
     const [value, setvalue] = useState("")
+    const [openInput, setOpenInput] = useState(false)
 
     useEffect(() => {
         if (data) {
@@ -18,8 +19,6 @@ export const Tasks = () => {
     }, [data])
 
     const AdditionalTab = () => {
-        const [openInput, setOpenInput] = useState(false)
-
         return (
             <div className='flext items-center  mt-2'>
                 {openInput && (
@@ -47,7 +46,7 @@ export const Tasks = () => {
     }
 
     return (
-        <TabView>
+        <TabView scrollable>
             {types?.map((tab: any) => (
                 <TabPanel header={tab}>
                     <DailyList taskType={tab} />

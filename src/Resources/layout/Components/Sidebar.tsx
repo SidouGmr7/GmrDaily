@@ -2,7 +2,7 @@ import { Paper, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/ma
 import { Link } from "react-router-dom"
 import { useLocation } from "react-router-dom"
 import { RiMenuFoldLine } from "react-icons/ri"
-import { SideBarProps } from "../../types/type"
+import { SideBarProps } from "../../types/types"
 
 export const Sidebar = ({
     collapsedSideBar,

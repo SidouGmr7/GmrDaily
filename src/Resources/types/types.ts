@@ -42,15 +42,15 @@ export type CheckboxListProps = {
     checkList: Array<CheckList>
     lineThrough?: boolean
     handleAction: any
-    isChecked: string[]
-    canAdd: boolean
-    canRemove: boolean
-    isFetching: boolean
+    isChecked?: any 
+    canAdd?: boolean
+    canRemove?: boolean
+    isFetching?: boolean
     showState?: any
 }
 
 export type CheckList = {
     id: string
     name: string
-    checked: Array<{ date: string; isChecked: boolean }>
+    checked: any //| boolean | Array<{ date: string; isChecked: boolean }>
 }

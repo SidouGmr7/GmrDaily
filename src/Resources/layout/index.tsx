@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Navbar } from "./Components/Navbar"
 import { Sidebar } from "./Components/Sidebar"
-import { LayoutProps } from "../types/type"
+import { LayoutProps } from "../types/types"
 
 export const Layout = ({
     children,

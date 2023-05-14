@@ -1,5 +1,6 @@
 import { CheckboxList } from "../../Resources/Components/Checkbox/CheckboxList"
 import { useCRUD } from "../../hooks/useCRUD"
+import { CheckList } from "../../Resources/types/types"
 import moment from "moment"
 
 export const DailyList = (props: any) => {
@@ -18,7 +19,7 @@ export const DailyList = (props: any) => {
                     await addData({
                         name: data,
                         date: moment().format("YYYY-MM-DD"),
-                        checked: !data?.checked,
+                        checked: false,
                         type: props.taskType,
                     })
                     break
@@ -34,12 +35,12 @@ export const DailyList = (props: any) => {
         }
     }
     return (
-        <div className='flex flex-col items-center md:py-28 py-10'>
-            <div className='text-4xl pb-10'>My CheckList:</div>
+        <div className='flex flex-col py-10'>
+        <div className='text-xl pb-4 -mt-10 text-gray-500'>My CheckList:</div>
             <CheckboxList
                 lineThrough
                 checkList={data?.filter((item: any) => item.type === props.taskType)}
-                isChecked={data?.filter((item: any) => item.checked).map((item: any) => item.id)}
+                isChecked={(item: CheckList) => item?.checked}
                 handleAction={handleAction}
                 isFetching={isFetching}
                 canAdd

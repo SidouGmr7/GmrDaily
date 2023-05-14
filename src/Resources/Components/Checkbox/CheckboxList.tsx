@@ -1,6 +1,6 @@
 import { ListItemText, List } from "@mui/material"
 import { Checkbox } from "primereact/checkbox"
-import { CheckboxListProps } from "../../types/type"
+import { CheckboxListProps } from "../../types/types"
 import { MdOutlineBookmarkRemove } from "react-icons/md"
 import { ImStatsDots } from "react-icons/im"
 
@@ -20,9 +20,9 @@ export const CheckboxList = ({
 }: CheckboxListProps) => {
     const [value, setvalue] = useState("")
     const [loading, setLoading] = useState("")
-    useEffect(()=>{
+    useEffect(() => {
         !isFetching && setLoading("")
-    },[])
+    }, [])
     return (
         <div>
             {checkList?.map((item, index) => (
@@ -34,12 +34,12 @@ export const CheckboxList = ({
                                 setLoading(item.id)
                             }}
                             id={item.id}
-                            checked={isChecked.includes(item.id)}
+                            checked={isChecked(item)}
                             className=''
                         />
                         <ListItemText
                             className={`ml-10 transition-all duration-500 ${
-                                isChecked.includes(item.id) && lineThrough && "line-through text-gray-400"
+                                isChecked(item) && lineThrough && "line-through text-gray-400"
                             }`}
                             primary={item.name}
                         />
@@ -90,7 +90,7 @@ export const CheckboxList = ({
                             className='ml-10 transition-all duration-500 text-gray-500'
                             primary={
                                 <InputText
-                                    style={{ width: "160px", height: "40px" }}
+                                    style={{ width: "100%", height: "40px" }}
                                     value={value}
                                     onChange={(e) => setvalue(e.target.value)}
                                     onKeyDown={(e) => {
