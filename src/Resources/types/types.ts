@@ -1,6 +1,7 @@
 import { ReactElement, ReactNode } from "react"
 import { SvgIconProps } from "@mui/material"
 
+
 export type Routes = {
     title: string
     components: ReactElement
@@ -36,21 +37,4 @@ export type SideBarProps = {
     collapsedSideBar: () => void
     collapsed: boolean
     sideBarListItem: Routes[]
-}
-
-export type CheckboxListProps = {
-    checkList: Array<CheckList>
-    lineThrough?: boolean
-    handleAction: any
-    isChecked?: any 
-    canAdd?: boolean
-    canRemove?: boolean
-    isFetching?: boolean
-    showState?: any
-}
-
-export type CheckList = {
-    id: string
-    name: string
-    checked: any //| boolean | Array<{ date: string; isChecked: boolean }>
 }

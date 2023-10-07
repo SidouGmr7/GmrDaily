@@ -5,7 +5,6 @@ import { Home } from "./pages/Home"
 import { BrowserRouter as Router, Route, Routes as Switch } from "react-router-dom"
 import { Tasks } from "./pages/Tasks"
 import { AccessAlarm, ThreeDRotation } from "@mui/icons-material"
-import TreePeople from "./pages/TreePeople"
 
 export const sideBarLink = [
     {
@@ -18,12 +17,6 @@ export const sideBarLink = [
         title: "Tasks",
         components: <Tasks />,
         link: "/dashboard/tasks",
-        icon: <AccessAlarm className='text-gray-400 hover:text-white' />,
-    },
-    {
-        title: "Tree People",
-        components: <TreePeople />,
-        link: "/dashboard/tree",
         icon: <AccessAlarm className='text-gray-400 hover:text-white' />,
     },
 ]

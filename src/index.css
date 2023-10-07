@@ -7,3 +7,14 @@ body {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.p-tree .p-tree-container .p-treenode{
+    padding-left: 2rem !important;
+}
+
+
+/* .p-treenode-content{
+    display: flex !important;
+    justify-content: space-between !important;
+} */
