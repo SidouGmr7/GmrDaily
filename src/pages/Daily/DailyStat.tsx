@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react"
-import { Chart } from "primereact/chart"
+// import { useState, useEffect } from "react"
+// import { Chart } from "primereact/chart"
 import _ from "lodash"
 
-export function DailyStat(props: any) {
-    const [chartData, setChartData] = useState({})
-    const [chartOptions, setChartOptions] = useState({})
-    const [dataWeek, setDataWeek] = useState<any>([])
+export function DailyStat() {
+    // const [chartData, setChartData] = useState({})
+    // const [chartOptions, setChartOptions] = useState({})
+    // const [dataWeek, setDataWeek] = useState<any>([])
 
     // const calculateData = (data: any) => {
     //     let occ: number = 0

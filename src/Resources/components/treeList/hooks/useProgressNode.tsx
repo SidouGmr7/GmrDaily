@@ -15,15 +15,17 @@ export const useProgressNode = ({ node, selectionKeys }: UseProgressNodeProps) =
         if (node.children?.length && selectionKeys) {
             node.children.forEach((child) => {
                 if (child.key && selectionKeys[child.key]?.checked) {
+                    const children = node.children as TreeNode[]
                     setProgress((prev: any) => {
-                        return prev + 1 / node.children.length
+                        return prev + 1 / children.length
                     })
                 }
             })
         }
-        if (_.isEmpty(node.children) && node?.key && selectionKeys) {
+        if (_.isEmpty(node.children) && node.key && selectionKeys) {
+            const key = node.key
             setProgress(() => {
-                return selectionKeys[node.key]?.checked ? 1 : 0
+                return selectionKeys[key]?.checked ? 1 : 0
             })
         }
     }, [JSON.stringify(selectionKeys)])

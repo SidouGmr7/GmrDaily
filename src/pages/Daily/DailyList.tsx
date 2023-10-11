@@ -1,10 +1,8 @@
-import { useFirebase } from "../../Resources/firebase/hooks/useFirebase"
-import moment from "moment"
 import TreeList from '../../Resources/components/treeList/TreeList'
-export const DailyList = (props: any) => {
+export const DailyList = () => {
     // const { data, refetch, isFetching, updateData, addData, deleteData } = useFirebase()
     // const handleAction = async (type: string, id: string, data?: any) => {
-    
+
     // }
     return (
         <div className='flex flex-col py-10'>
@@ -13,6 +11,3 @@ export const DailyList = (props: any) => {
         </div>
     )
 }
-
-
-

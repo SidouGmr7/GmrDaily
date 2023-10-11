@@ -1,15 +1,15 @@
-import { DailyList } from "./DailyList"
-import { TabView, TabPanel } from "primereact/tabview"
+// import { DailyList } from "./DailyList"
+import { TabView, /*TabPanel*/ } from "primereact/tabview"
 import _ from "lodash"
-import { useEffect, useState } from "react"
-import { Button } from "primereact/button"
-import { InputText } from "primereact/inputtext"
+// import { useEffect, useState } from "react"
+// import { Button } from "primereact/button"
+// import { InputText } from "primereact/inputtext"
 
 export const Tasks = () => {
     // const { data } = useCRUD()
-    const [types, setTypes] = useState<any>([])
-    const [value, setvalue] = useState("")
-    const [openInput, setOpenInput] = useState(false)
+    // const [types, setTypes] = useState<any>([])
+    // const [value, setvalue] = useState("")
+    // const [openInput, setOpenInput] = useState(false)
 
     // useEffect(() => {
     //     if (data) {

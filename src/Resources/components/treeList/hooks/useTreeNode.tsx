@@ -69,9 +69,16 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
         console.log('gg')
     }
 
-    return { onSubmit, newNodeLabel, handleChange, removeNode, nodeToRemoved, toggleNode }
+    return {
+        onSubmit,
+        newNodeLabel,
+        openTextField,
+        handleChange,
+        removeNode,
+        nodeToRemoved,
+        toggleNode,
+    }
 }
-
 
 export const generateNode = ({ newNodeLabel, head, parent }: generateNodeProps) => {
     let key

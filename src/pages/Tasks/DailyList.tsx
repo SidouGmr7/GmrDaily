@@ -1,8 +1,8 @@
-import { CheckboxList } from "../../Resources/Components/Checkbox/CheckboxList"
-import { CheckList } from "../../Resources/types/types"
-import moment from "moment"
+// import { CheckboxList } from "../../Resources/Components/Checkbox/CheckboxList"
+// import { CheckList } from "../../Resources/types/types"
+// import moment from "moment"
 
-export const DailyList = (props: any) => {
+export const DailyList = () => {
     // const { data, refetch, isFetching, updateData, addData, deleteData } = useCRUD()
     // const handleAction = async (type: string, id: string, data?: any) => {
     //     try {

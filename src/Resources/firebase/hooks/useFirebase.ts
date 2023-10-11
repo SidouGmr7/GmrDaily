@@ -9,14 +9,13 @@ import {
     query,
     DocumentData,
     serverTimestamp,
-    where,
-    CollectionReference,
+    // where,
     setDoc,
 } from 'firebase/firestore'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { db, DefaultCollection, DefaultSubCollection } from '../configs'
 import { convertTimestampToDate } from '../utils'
-import { FetchAllDataProps, FetchDataProps, UseFirebaseProps } from '../types'
+import { FetchAllDataProps, UseFirebaseProps } from '../types'
 import { TreeNode } from '../../../Resources/components/treeList/types'
 
 export function useFirebase({ colRef = DefaultCollection, docId, condition }: UseFirebaseProps) {
