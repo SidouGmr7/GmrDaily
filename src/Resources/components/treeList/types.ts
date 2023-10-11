@@ -6,7 +6,7 @@ import {
 } from 'primereact/tree'
 import { TreeNode as defaultTreeNode } from 'primereact/treenode'
 
-export type ChekBookNodes = string | TreeMultipleSelectionKeys | TreeCheckboxSelectionKeys | null
+export type CheckBoxNodes = string | TreeMultipleSelectionKeys | TreeCheckboxSelectionKeys | null
 
 export type TreeNode = defaultTreeNode & {
     children?: TreeNode[] | undefined

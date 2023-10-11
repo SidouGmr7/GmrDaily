@@ -9,12 +9,27 @@ body {
 @tailwind utilities;
 
 
-.p-tree .p-tree-container .p-treenode{
-    padding-left: 2rem !important;
+@media (min-width: 576px){
+
+    .p-progressbar{
+        height: 1rem !important;
+        width:  8rem !important;
+    }
+    
+    .p-progressbar-label{
+        font-size: 0.9rem;
+        margin-top: 0.1rem;
+    }
 }
 
+@media (max-width: 576px){
 
-/* .p-treenode-content{
-    display: flex !important;
-    justify-content: space-between !important;
-} */
+    .p-progressbar{
+        height: 1rem !important;
+        width: 3rem !important;
+    }
+    
+    .p-progressbar-label{
+        font-size: 0.6rem;
+    }
+}

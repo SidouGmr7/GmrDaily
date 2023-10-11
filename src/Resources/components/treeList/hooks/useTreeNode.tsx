@@ -1,7 +1,7 @@
-import { TreeNode } from './types'
-import { useFirebase } from '../../../Resources/firebase/hooks/useFirebase'
+import { TreeNode } from '../types'
+import { useFirebase } from '../../../firebase/hooks/useFirebase'
 import { useState } from 'react'
-import { DefaultCollection, DefaultSubCollection } from '../../../Resources/firebase/configs'
+import { DefaultCollection, DefaultSubCollection } from '../../../firebase/configs'
 
 type generateNodeProps = {
     newNodeLabel: string
@@ -66,15 +66,16 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
         } else if (node?.children?.length && node.children[node.children?.length - 1].action) {
             node.children?.pop()
         }
+        console.log('gg')
     }
 
     return { onSubmit, newNodeLabel, handleChange, removeNode, nodeToRemoved, toggleNode }
 }
 
+
 export const generateNode = ({ newNodeLabel, head, parent }: generateNodeProps) => {
     let key
     if (head) {
-        console.log('head: ', head);
         key = head.length ? Number(head[head.length - 1].key) + 1 : 1
     }
     if (parent) {

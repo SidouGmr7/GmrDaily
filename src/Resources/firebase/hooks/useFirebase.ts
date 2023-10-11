@@ -40,7 +40,7 @@ export function useFirebase({ colRef = DefaultCollection, docId, condition }: Us
     )
     const addData = useMutation(
         async ({ data, colRef = DefaultCollection, customDocId }: DocumentData) => {
-            console.log('addData: ', data)
+            console.info('addData: ', data)
             const newData = { ...data, createdAt: serverTimestamp() }
             if (!customDocId) {
                 // If you want to auto-generate the document ID
@@ -55,14 +55,17 @@ export function useFirebase({ colRef = DefaultCollection, docId, condition }: Us
         refertch
     )
 
-    const updateData = useMutation(async ({ data, id }: DocumentData) => {
-        console.log('updateData: ', data)
-        const newData = { ...data, createdAt: serverTimestamp() }
-        await updateDoc(doc(db, colRef, id), newData)
-    }, refertch)
+    const updateData = useMutation(
+        async ({ data, colRef = DefaultCollection, docId }: DocumentData) => {
+            console.info('updateData: ', data)
+            const newData = { ...data, createdAt: serverTimestamp() }
+            await updateDoc(doc(db, colRef, docId), newData)
+        },
+        refertch
+    )
 
     const deleteData = useMutation(async ({ colRef }: DocumentData) => {
-        console.log('deleteData: ', colRef)
+        console.info('deleteData: ', colRef)
         await deleteDoc(doc(db, colRef))
     }, refertch)
 
@@ -114,16 +117,17 @@ export const fetchCollectionData = async ({
     }) as TreeNode[]
 
     const data = await Promise.all(dataPromises)
-    console.info('data', level, ':', data)
+    // console.info('fetchData', colRef, ':', data)
     return data
 }
 
-// export const fetchSingleData = async ({ colRef, docId }: FetchDataProps) => {
-//     const docSnap = await getDoc(doc(db, colRef, docId))
-//     const data = docSnap?.data()
-//     return {
-//         id: docSnap.id,
-//         ...data,
-//         ...(data?.createdAt && { createdAt: convertTimestampToDate(data?.createdAt) }),
-//     } as TreeNode
-// }
+export const fetchSingleData = async ({ colRef, docId }: any) => {
+    const docSnap = await getDoc(doc(db, colRef, docId))
+    const data = docSnap?.data()
+    console.info(colRef, ': ', data)
+    return {
+        id: docSnap.id,
+        ...data,
+        ...(data?.createdAt && { createdAt: convertTimestampToDate(data?.createdAt) }),
+    }
+}
