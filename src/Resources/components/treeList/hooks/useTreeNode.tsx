@@ -18,7 +18,7 @@ type UseTreeNodeProps = {
 }
 
 export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
-    const { addData, deleteData, refetch } = useFirebase({
+    const { addData, deleteData } = useFirebase({
         condition: { useSubCollection: true },
     })
     const [nodeToRemoved, setNodeToRemoved] = useState('')
@@ -29,12 +29,9 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
         const newNode = generateNode({ newNodeLabel, parent })
         const values = {
             data: newNode,
-            colRef:
-                parent.id?.length === 1
-                    ? `${col}/${parent.id}/${subCol}`
-                    : `${col}/${Math.floor((parent.id as any) / 10)}/${subCol}/${
-                          parent.id
-                      }/${subCol}`,
+            colRef: !parent.id?.includes('-')
+                ? `${col}/${parent.id}/${subCol}`
+                : `${col}/${parent.id.split('-')[0]}/${subCol}/${parent.id}/${subCol}`,
             customDocId: newNode.key,
         }
         addData.mutateAsync(values).then(() => {
@@ -42,14 +39,18 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
         })
     }
 
-    const removeNode = (e: any) => {
+    const removeNode = (e: any, onSeccuss: () => void) => {
         e.stopPropagation()
         setNodeToRemoved(node.id || '')
-        deleteData.mutateAsync({
-            colRef: `${col}/${Math.floor((parent.id as any) / 10)}/${subCol}/${
-                parent.id
-            }/${subCol}/${node.id}`,
-        })
+        deleteData
+            .mutateAsync({
+                colRef: `${col}/${parent.id?.split('-')[0]}/${subCol}/${parent.id}/${subCol}/${
+                    node.id
+                }`,
+            })
+            .then(() => {
+                onSeccuss()
+            })
     }
 
     const toggleNode = (e: any) => {
@@ -77,13 +78,16 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
 export const generateNode = ({ newNodeLabel, head, parent }: generateNodeProps) => {
     let key
     if (head) {
-        key = head.length ? Number(head[head.length - 1].key) + 1 : 1
+        key = head.length ? String(Number(head[head.length - 1].key) + 1) : '1'
     }
     if (parent) {
         if (parent.children?.length) {
-            key = Number(parent?.children[parent.children?.length - 1].key) + 1
+            const precChildKey = parent?.children[parent.children?.length - 1].key as string
+            const parts = precChildKey?.split('-')
+            const precKey = parts[parts.length - 1]
+            key = `${parent?.key}-${Number(precKey) + 1}`
         } else {
-            key = Number(parent?.key) * 10 + 1
+            key = `${parent?.key}-1`
         }
     }
     const generatedNode = {

@@ -26,14 +26,14 @@ export const useCheckBoxNode = ({ node, selectionKeys }: UseCheckBoxNodeProps) =
         fetchCheckBoxData()
     }, [])
 
-    const onSubmitCheckBox = () => {
+    const onSubmitCheckBox = (onSeccuss: () => void) => {
         const values = {
             data: { checkBox: selectedKeys },
             colRef: 'DataSource',
             docId: 'CheckBox',
         }
         updateData.mutateAsync(values).then(() => {
-            console.log('seccussfuly')
+            onSeccuss()
         })
     }
 

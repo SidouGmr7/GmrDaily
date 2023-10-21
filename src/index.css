@@ -1,5 +1,5 @@
 body {
-    font-family: "Montserrat", sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background-color: #f2f4f8;
     margin: 0;
     box-sizing: border-box;
@@ -8,28 +8,58 @@ body {
 @tailwind components;
 @tailwind utilities;
 
-
-@media (min-width: 576px){
-
-    .p-progressbar{
+@media (min-width: 576px) {
+    .p-progressbar {
         height: 1rem !important;
-        width:  8rem !important;
+        width: 8rem !important;
     }
-    
-    .p-progressbar-label{
+
+    .p-progressbar-label {
         font-size: 0.9rem;
         margin-top: 0.1rem;
+        position: absolute !important;
+        left: 50% !important;
     }
 }
 
-@media (max-width: 576px){
-
-    .p-progressbar{
+@media (max-width: 576px) {
+    .p-progressbar {
         height: 1rem !important;
         width: 3rem !important;
     }
-    
-    .p-progressbar-label{
+
+    .p-progressbar-label {
         font-size: 0.6rem;
+        position: absolute !important;
+        left: '50%' !important;
     }
 }
+
+.p-progressbar-determinate .p-progressbar-value {
+    overflow: unset !important;
+}
+
+/* .p-tabview .p-tabview-panels {
+    background-color: #111827 !important;
+}
+
+.p-tabview .p-tabview-nav {
+    background-color: #111827 !important;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background-color: #111827 !important;
+}
+
+.p-tabview .p-tabview-nav-btn.p-link {
+    background-color: #111827 !important;
+}
+
+.p-tree{
+    background-color: #111827 !important;
+    border: unset !important
+}
+
+.p-inputtext{
+    background-color: #111827 !important;
+} */

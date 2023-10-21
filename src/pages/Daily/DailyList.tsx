@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import { Toast } from 'primereact/toast'
-import { MyContext } from '../../providers/ToastProvider'
+import { ToastContext } from '../../providers/ToastProvider'
 import TreeList from '../../Resources/components/treeList/TreeList'
 
 export const DailyList = () => {
-    const { toast } = useContext(MyContext)
+    const { toast } = useContext(ToastContext)
 
     return (
         <div className='flex flex-col py-10'>

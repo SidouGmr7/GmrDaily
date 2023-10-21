@@ -8,6 +8,8 @@ import { Options, TreeNode } from './types'
 import { ProgressSpinner } from 'primereact/progressspinner'
 import { Grid } from '@mui/material'
 import AddChildNodeForm from './AddChildNodeForm'
+import { ToastContext } from '../../../providers/ToastProvider'
+import { useContext } from 'react'
 
 export const nodeTemplate = (node: TreeNode, options: Options) => {
     const { isFetching } = useFirebase({
@@ -17,6 +19,7 @@ export const nodeTemplate = (node: TreeNode, options: Options) => {
     const { removeNode, nodeToRemoved, toggleNode } = useTreeNode({ node, parent })
     const { isChecked } = useCheckBoxNode({ node, selectionKeys })
     const { progress } = useProgressNode({ node, selectionKeys })
+    const { showToast } = useContext(ToastContext)
 
     return (
         <>
@@ -50,7 +53,14 @@ export const nodeTemplate = (node: TreeNode, options: Options) => {
                                     rounded
                                     text
                                     severity='danger'
-                                    onClick={removeNode}
+                                    onClick={(e) =>
+                                        removeNode(e, () =>
+                                            showToast({
+                                                detail: node.label,
+                                                summary: 'remove data',
+                                            })
+                                        )
+                                    }
                                 />
                             )}
                         </>

@@ -30,5 +30,5 @@ export const useProgressNode = ({ node, selectionKeys }: UseProgressNodeProps) =
         }
     }, [JSON.stringify(selectionKeys)])
 
-    return { progress: progress.toFixed(2) * 100 }
+    return { progress: (progress * 100).toFixed(0) }
 }

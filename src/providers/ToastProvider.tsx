@@ -7,12 +7,12 @@ type ToastProps = {
     detail: string | number
 }
 
-interface MyContextProps {
+interface ToastContextProps {
     toast: React.MutableRefObject<Toast | null>
     showToast: ({ severity, summary, detail }: ToastProps) => void
 }
 
-const MyContext = createContext<MyContextProps | any>(undefined)
+const ToastContext = createContext<ToastContextProps | any>(undefined)
 
 const ToastProvider = ({ children }: React.PropsWithChildren) => {
     const toast = useRef<Toast | null>(null)
@@ -28,7 +28,7 @@ const ToastProvider = ({ children }: React.PropsWithChildren) => {
         }
     }
 
-    return <MyContext.Provider value={{ toast, showToast }}>{children}</MyContext.Provider>
+    return <ToastContext.Provider value={{ toast, showToast }}>{children}</ToastContext.Provider>
 }
 
-export { MyContext, ToastProvider }
+export { ToastContext, ToastProvider }

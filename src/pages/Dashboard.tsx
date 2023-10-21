@@ -44,7 +44,7 @@ export const Dashboard = () => {
                             <Paper
                                 component={motion.div}
                                 variants={item}
-                                style={{ borderRadius: 40 }}
+                                style={{ borderRadius: 40 /*backgroundColor: '#111827'*/ }}
                             >
                                 <div className='py-10 md:px-32'>{components}</div>
                             </Paper>

@@ -8,17 +8,20 @@ import { InputText } from 'primereact/inputtext'
 import { generateNode } from './hooks/useTreeNode'
 import { DefaultCollection } from '../../../Resources/firebase/configs'
 import { useCheckBoxNode } from './hooks/useCheckBoxNode'
+import { ToastContext } from '../../../providers/ToastProvider'
+import { useContext } from 'react'
+import { useLocalStorage } from './hooks/useLocalStorage'
 
 export default function TreeList() {
     const { data, addData } = useFirebase({ condition: { useSubCollection: true } })
-    // console.log('data: ', data);
+    const { localStorageData } = useLocalStorage('nodes', data)
+    // console.log('data: ', data)
     const { selectedKeys, setSelectedKeys, onSubmitCheckBox } = useCheckBoxNode({})
     // const [nodes, setNodes] = useState<TreeNode[] | undefined>([])
     const [openTextField, setOpenTextField] = useState(false)
     const [newNodeLabel, setNewNodeLabel] = useState('')
-    // useEffect(() => {
-    //     setNodes(data)
-    // }, [nodes])
+    const { showToast } = useContext(ToastContext)
+
     const onSubmit = () => {
         const newNode = generateNode({ newNodeLabel, head: data })
 
@@ -29,7 +32,7 @@ export default function TreeList() {
         }
         if (newNodeLabel) {
             addData.mutateAsync(values).then(() => {
-                console.log('seccussfuly')
+                showToast({ detail: values.data.label, summary: 'add New head Child' })
                 setOpenTextField(false)
                 setNewNodeLabel('')
             })
@@ -54,11 +57,23 @@ export default function TreeList() {
                     onClick={!openTextField ? () => setOpenTextField(true) : onSubmit}
                 />
 
-                <Button label='CheckBox' severity='info' rounded onClick={onSubmitCheckBox} />
+                <Button
+                    label='CheckBox'
+                    severity='info'
+                    rounded
+                    onClick={() =>
+                        onSubmitCheckBox(() => showToast({ summary: 'update CheckBox' }))
+                    }
+                />
+                <Button
+                    label={data ? 'Firebase' : 'LocalStorage'}
+                    severity={data ? 'info' : 'danger'}
+                    rounded
+                />
             </div>
             <div className='card flex flex-column align-items-center'>
                 <Tree
-                    value={data}
+                    value={data || localStorageData}
                     className='w-full'
                     filter
                     filterMode='strict'

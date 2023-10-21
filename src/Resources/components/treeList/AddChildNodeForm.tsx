@@ -4,7 +4,7 @@ import { InputText } from 'primereact/inputtext'
 import { useTreeNode } from './hooks/useTreeNode'
 import { TreeNode } from 'primereact/treenode'
 import { useContext } from 'react'
-import { MyContext } from '../../../providers/ToastProvider'
+import { ToastContext } from '../../../providers/ToastProvider'
 
 type AddChildNodeFormProps = {
     parent: TreeNode
@@ -14,7 +14,7 @@ type AddChildNodeFormProps = {
 
 export default function AddChildNodeForm({ parent, node, isFetching }: AddChildNodeFormProps) {
     const { onSubmit } = useTreeNode({ parent, node })
-    const { showToast } = useContext(MyContext)
+    const { showToast } = useContext(ToastContext)
 
     const formik = useFormik({
         initialValues: {
