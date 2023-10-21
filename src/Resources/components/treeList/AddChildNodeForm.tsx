@@ -44,21 +44,19 @@ export default function AddChildNodeForm({ parent, node, isFetching }: AddChildN
     return (
         <FormikProvider value={formik}>
             <div className='card flex justify-content-center'>
-                <form onSubmit={formik.handleSubmit} className='flex flex-column gap-2'>
-                    <span className='p-input-icon-right'>
-                        {isFetching && <i className='pi pi-spin pi-spinner' />}
-                        <Field
-                            as={InputText}
-                            name='newLableNode'
-                            value={formik.values.newLableNode || ''}
-                            // placeholder={getFormErrorMessage('newLableNode')}
-                            // className={classNames(
-                            //     { 'p-invalid': isFormFieldInvalid('newLableNode') },
-                            //     'p-inputtext-sm'
-                            // )}
-                            // InputProps={{ style: { width: isMobile ? '96vw' : '60vw' } }}
-                        />
-                    </span>
+                <form onSubmit={formik.handleSubmit} className='flex flex-column'>
+                    <Field
+                        as={InputText}
+                        name='newLableNode'
+                        value={formik.values.newLableNode || ''}
+                        // placeholder={getFormErrorMessage('newLableNode')}
+                        // className={classNames(
+                        //     { 'p-invalid': isFormFieldInvalid('newLableNode') },
+                        //     'p-inputtext-sm'
+                        // )}
+                        // InputProps={{ style: { width: isMobile ? '96vw' : '60vw' } }}
+                        className='p-inputtext-sm w-10'
+                    />
                 </form>
             </div>
         </FormikProvider>

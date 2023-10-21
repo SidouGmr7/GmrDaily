@@ -23,7 +23,7 @@ export const nodeTemplate = (node: TreeNode, options: Options) => {
 
     return (
         <>
-            <div className='w-[100%]'>
+            <div className='md:w-[100%] w-[80%]'>
                 <span className={options.className}>
                     {isChecked ? <del>{node.label}</del> : node.label}
                 </span>
