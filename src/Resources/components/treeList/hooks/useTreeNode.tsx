@@ -18,14 +18,13 @@ type UseTreeNodeProps = {
 }
 
 export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
-    const { addData, deleteData } = useFirebase({
+    const { addData, deleteData, refetch } = useFirebase({
         condition: { useSubCollection: true },
     })
     const [nodeToRemoved, setNodeToRemoved] = useState('')
     const [openTextField, setOpenTextField] = useState(false)
-    const [newNodeLabel, setNewNodeLabel] = useState('')
 
-    const onSubmit = () => {
+    const onSubmit = (newNodeLabel: string, onSeccuss: () => void) => {
         removeActionElement(parent)
         const newNode = generateNode({ newNodeLabel, parent })
         const values = {
@@ -39,15 +38,12 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
             customDocId: newNode.key,
         }
         addData.mutateAsync(values).then(() => {
-            console.log('seccussfuly')
+            onSeccuss()
         })
     }
 
-    const handleChange = (e: any) => {
-        setNewNodeLabel(e.target.value)
-    }
-
-    const removeNode = () => {
+    const removeNode = (e: any) => {
+        e.stopPropagation()
         setNodeToRemoved(node.id || '')
         deleteData.mutateAsync({
             colRef: `${col}/${Math.floor((parent.id as any) / 10)}/${subCol}/${
@@ -56,7 +52,8 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
         })
     }
 
-    const toggleNode = () => {
+    const toggleNode = (e: any) => {
+        e.stopPropagation()
         node.expanded = !node.expanded
         setOpenTextField(node.expanded)
         if (node.expanded) {
@@ -66,14 +63,11 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
         } else if (node?.children?.length && node.children[node.children?.length - 1].action) {
             node.children?.pop()
         }
-        console.log('gg')
     }
 
     return {
         onSubmit,
-        newNodeLabel,
         openTextField,
-        handleChange,
         removeNode,
         nodeToRemoved,
         toggleNode,
