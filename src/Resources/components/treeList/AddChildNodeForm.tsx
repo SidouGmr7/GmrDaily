@@ -12,7 +12,7 @@ type AddChildNodeFormProps = {
     isFetching: boolean
 }
 
-export default function AddChildNodeForm({ parent, node, isFetching }: AddChildNodeFormProps) {
+export default function AddChildNodeForm({ parent, node }: AddChildNodeFormProps) {
     const { onSubmit } = useTreeNode({ parent, node })
     const { showToast } = useContext(ToastContext)
 
