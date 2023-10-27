@@ -116,14 +116,14 @@ export const fetchCollectionData = async ({
     }) as TreeNode[]
 
     const data = await Promise.all(dataPromises)
-    // console.info('fetchData', colRef, ':', data)
+    console.info('fetchData', colRef, ':', data)
     return data
 }
 
 export const fetchSingleData = async ({ colRef, docId }: any) => {
     const docSnap = await getDoc(doc(db, colRef, docId))
     const data = docSnap?.data()
-    console.info(colRef, ': ', data)
+    console.info('fetch single data', colRef, ': ', data)
     return {
         id: docSnap.id,
         ...data,

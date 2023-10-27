@@ -1,6 +1,7 @@
 import { CheckBoxNodes, TreeNode } from '../types'
 import { useEffect, useState } from 'react'
 import { fetchSingleData, useFirebase } from '../../../../Resources/firebase/hooks/useFirebase'
+import _ from 'lodash'
 
 type UseCheckBoxNodeProps = {
     node?: TreeNode
@@ -23,7 +24,7 @@ export const useCheckBoxNode = ({ node, selectionKeys }: UseCheckBoxNodeProps) =
             const checkBoxData = await fetchSingleData({ colRef: 'DataSource', docId: 'CheckBox' })
             setSelectedKeys(checkBoxData.checkBox)
         }
-        fetchCheckBoxData()
+        _.isEmpty(selectionKeys) && fetchCheckBoxData()
     }, [])
 
     const onSubmitCheckBox = (onSeccuss: () => void) => {
