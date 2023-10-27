@@ -42,8 +42,8 @@ export default function TreeList() {
     }
 
     return (
-        <>
-            <div className='flex justify-center mb-4 space-x-2'>
+        <div>
+            <div className='mt-2 flex justify-center mb-4 space-x-2'>
                 {openTextField && (
                     <InputText
                         value={newNodeLabel}
@@ -71,7 +71,7 @@ export default function TreeList() {
                     rounded
                 />
             </div>
-            <div className='card flex flex-column align-items-center'>
+            <div>
                 <Tree
                     value={data || localStorageData}
                     className='w-full'
@@ -84,6 +84,6 @@ export default function TreeList() {
                     onSelectionChange={(e) => setSelectedKeys(e.value)}
                 />
             </div>
-        </>
+        </div>
     )
 }

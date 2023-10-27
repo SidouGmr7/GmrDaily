@@ -25,7 +25,7 @@ export const Dashboard = () => {
         <Layout
             childrenStyle={(collapsed) => {
                 return `${
-                    collapsed ? 'px-[2%]' : 'pl-[22%] pr-[2%]'
+                    collapsed ? 'md:px-[2%]' : 'pl-[22%] pr-[2%]'
                 } pt-[6%] pb-[2%] transition-all duration-500`
             }}
             sideBarListItem={sideBarLink}

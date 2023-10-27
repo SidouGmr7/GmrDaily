@@ -33,20 +33,30 @@ body {
         position: absolute !important;
         left: 50% !important;
     }
-    .p-tree{
+    .p-tree {
         border: unset !important;
         padding: unset !important;
         background: unset !important;
         color: unset !important;
     }
     .p-tree .p-tree-container .p-treenode {
-        padding: 0rem !important;
+        padding-left: 0rem !important;
     }
     .p-tree .p-tree-container .p-treenode .p-treenode-content {
-        padding: 0.5rem 0 0.5rem 0 !important;
+        padding: 0.3rem 0.2rem 0.3rem 0 !important;
     }
-    .p-component{
+    .p-component {
         font-size: 0.8rem !important;
+    }
+    .p-tabview .p-tabview-panels {
+        padding: unset !important;
+    }
+    .p-tree-filter-container {
+        width: 80% !important;
+        margin: auto !important;
+    }
+    .p-tree .p-tree-container .p-treenode .p-treenode-content .p-tree-toggler {
+        margin-right: unset !important;
     }
 }
 
