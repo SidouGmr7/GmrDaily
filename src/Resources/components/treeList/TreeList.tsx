@@ -15,12 +15,11 @@ import { useLocalStorage } from './hooks/useLocalStorage'
 export default function TreeList() {
     const { data, addData } = useFirebase({ condition: { useSubCollection: true } })
     const { localStorageData } = useLocalStorage('nodes', data)
-    // console.log('data: ', data)
     const { selectedKeys, setSelectedKeys, onSubmitCheckBox } = useCheckBoxNode({})
     // const [nodes, setNodes] = useState<TreeNode[] | undefined>([])
     const [openTextField, setOpenTextField] = useState(false)
     const [newNodeLabel, setNewNodeLabel] = useState('')
-    const { showToast } = useContext(ToastContext)
+    const { showToast, onSelection } = useContext(ToastContext)
 
     const onSubmit = () => {
         const newNode = generateNode({ newNodeLabel, head: data })
@@ -81,7 +80,9 @@ export default function TreeList() {
                     nodeTemplate={(node, options) => nodeTemplate(node, options as Options)}
                     selectionMode='checkbox'
                     selectionKeys={selectedKeys}
-                    onSelectionChange={(e) => setSelectedKeys(e.value)}
+                    onSelectionChange={(e) => {
+                        onSelection && setSelectedKeys(e.value)
+                    }}
                 />
             </div>
         </div>

@@ -16,7 +16,7 @@ export const nodeTemplate = (node: TreeNode, options: Options) => {
         condition: { useSubCollection: true },
     })
     const { parent, selectionKeys } = options.props
-    const { removeNode, nodeToRemoved, toggleNode } = useTreeNode({ node, parent })
+    const { removeNode, nodeToRemoved } = useTreeNode({ node, parent })
     const { isChecked } = useCheckBoxNode({ node, selectionKeys })
     const { progress } = useProgressNode({ node, selectionKeys })
     const { showToast } = useContext(ToastContext)
@@ -28,46 +28,34 @@ export const nodeTemplate = (node: TreeNode, options: Options) => {
                     {isChecked ? <del>{node.label}</del> : node.label}
                 </span>
             </div>
-            {!node.action ? (
+            {node.children ? (
+                <Grid container className='justify-end flex items-center space-x-4'>
+                    <AddChildNodeForm parent={parent} node={node} isFetching={isFetching} />
+                    <ProgressBar value={progress}></ProgressBar>
+                </Grid>
+            ) : (
                 <>
-                    {node.children ? (
-                        <Grid container className='justify-end flex items-center'>
-                            <Button
-                                icon={node.expanded ? 'pi pi-minus' : 'pi pi-plus'}
-                                severity={node.expanded ? 'danger' : 'info'}
-                                rounded
-                                text
-                                onClick={toggleNode}
-                            />
-                            <ProgressBar value={progress}></ProgressBar>
-                        </Grid>
+                    {isFetching && nodeToRemoved === node.id ? (
+                        <div className='card'>
+                            <ProgressSpinner style={{ width: '30px', height: '30px' }} />
+                        </div>
                     ) : (
-                        <>
-                            {isFetching && nodeToRemoved === node.id ? (
-                                <div className='card'>
-                                    <ProgressSpinner style={{ width: '30px', height: '30px' }} />
-                                </div>
-                            ) : (
-                                <Button
-                                    icon='pi pi-minus'
-                                    rounded
-                                    text
-                                    severity='danger'
-                                    onClick={(e) =>
-                                        removeNode(e, () =>
-                                            showToast({
-                                                detail: node.label,
-                                                summary: 'remove data',
-                                            })
-                                        )
-                                    }
-                                />
-                            )}
-                        </>
+                        <Button
+                            icon='pi pi-minus'
+                            rounded
+                            text
+                            severity='danger'
+                            onClick={(e) =>
+                                removeNode(e, () =>
+                                    showToast({
+                                        detail: node.label,
+                                        summary: 'remove data',
+                                    })
+                                )
+                            }
+                        />
                     )}
                 </>
-            ) : (
-                <AddChildNodeForm parent={parent} node={node} isFetching={isFetching} />
             )}
         </>
     )

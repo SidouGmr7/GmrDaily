@@ -22,16 +22,13 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
         condition: { useSubCollection: true },
     })
     const [nodeToRemoved, setNodeToRemoved] = useState('')
-    const [openTextField, setOpenTextField] = useState(false)
-
     const onSubmit = (newNodeLabel: string, onSeccuss: () => void) => {
-        removeActionElement(parent)
-        const newNode = generateNode({ newNodeLabel, parent })
+        const newNode = generateNode({ newNodeLabel, parent: node })
         const values = {
             data: newNode,
-            colRef: !parent.id?.includes('-')
-                ? `${col}/${parent.id}/${subCol}`
-                : `${col}/${parent.id.split('-')[0]}/${subCol}/${parent.id}/${subCol}`,
+            colRef: !node.id?.includes('-')
+                ? `${col}/${node.id}/${subCol}`
+                : `${col}/${node.id.split('-')[0]}/${subCol}/${node.id}/${subCol}`,
             customDocId: newNode.key,
         }
         addData.mutateAsync(values).then(() => {
@@ -42,36 +39,22 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
     const removeNode = (e: any, onSeccuss: () => void) => {
         e.stopPropagation()
         setNodeToRemoved(node.id || '')
-        deleteData
-            .mutateAsync({
-                colRef: `${col}/${parent.id?.split('-')[0]}/${subCol}/${parent.id}/${subCol}/${
-                    node.id
-                }`,
-            })
-            .then(() => {
-                onSeccuss()
-            })
-    }
-
-    const toggleNode = (e: any) => {
-        e.stopPropagation()
-        node.expanded = !node.expanded
-        setOpenTextField(node.expanded)
-        if (node.expanded) {
-            node.children?.push({
-                action: 'add',
-            })
-        } else if (node?.children?.length && node.children[node.children?.length - 1].action) {
-            node.children?.pop()
+        const values = {
+            colRef: !node.id?.includes('-')
+                ? `${col}/${node.id}`
+                : !parent.id?.includes('-')
+                ? `${col}/${parent.id}/${subCol}/${node.id}`
+                : `${col}/${parent.id?.split('-')[0]}/${subCol}/${parent.id}/${subCol}/${node.id}`,
         }
+        deleteData.mutateAsync(values).then(() => {
+            onSeccuss()
+        })
     }
 
     return {
         onSubmit,
-        openTextField,
         removeNode,
         nodeToRemoved,
-        toggleNode,
     }
 }
 
@@ -100,10 +83,3 @@ export const generateNode = ({ newNodeLabel, head, parent }: generateNodeProps) 
 
     return generatedNode
 }
-
-export const removeActionElement = (parent: TreeNode) => parent?.children?.pop()
-
-// export const addChildToParent = (newNode: string, parent: TreeNode) => {
-//     const newChild = generateNode(newNode)
-//     parent?.children?.push(newChild)
-// }
