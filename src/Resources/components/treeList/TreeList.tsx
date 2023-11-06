@@ -15,7 +15,9 @@ import { useLocalStorage } from './hooks/useLocalStorage'
 export default function TreeList() {
     const { data, addData } = useFirebase({ condition: { useSubCollection: true } })
     const { localStorageData } = useLocalStorage('nodes', data)
-    const { selectedKeys, setSelectedKeys, onSubmitCheckBox, isProgressCheckBox } = useCheckBoxNode({})
+    const { selectedKeys, setSelectedKeys, onSubmitCheckBox, isProgressCheckBox } = useCheckBoxNode(
+        {}
+    )
     // const [nodes, setNodes] = useState<TreeNode[] | undefined>([])
     const [openTextField, setOpenTextField] = useState(false)
     const [newNodeLabel, setNewNodeLabel] = useState('')
@@ -31,22 +33,18 @@ export default function TreeList() {
             customDocId: newNode.key,
             colRef: DefaultCollection,
         }
-        if (newNodeLabel) {
-            addData
-                .mutateAsync(values)
-                .then(() => {
-                    showToast({ detail: values.data.label, summary: 'add New head Child' })
-                    setOpenTextField(false)
-                    setNewNodeLabel('')
-                    setIsFetchingAddHead(false)
-                })
-                .catch((error) => {
-                    setIsFetchingAddHead(false)
-                    handleError(error)
-                })
-        } else {
-            setOpenTextField(false)
-        }
+        addData
+            .mutateAsync(values)
+            .then(() => {
+                showToast({ detail: values.data.label, summary: 'add New head Child' })
+                setOpenTextField(false)
+                setNewNodeLabel('')
+                setIsFetchingAddHead(false)
+            })
+            .catch((error) => {
+                setIsFetchingAddHead(false)
+                handleError(error)
+            })
     }
 
     return (
@@ -66,7 +64,11 @@ export default function TreeList() {
                     }
                     severity={(!openTextField && !newNodeLabel) || newNodeLabel ? 'info' : 'danger'}
                     rounded
-                    onClick={!openTextField ? () => setOpenTextField(true) : onSubmit}
+                    onClick={
+                        !openTextField || !newNodeLabel
+                            ? () => setOpenTextField((prev) => !prev)
+                            : onSubmit
+                    }
                     loading={isFetchingAddHead}
                 />
                 <Button
