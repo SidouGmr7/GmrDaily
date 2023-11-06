@@ -1,7 +1,8 @@
 import { TreeNode } from '../types'
 import { useFirebase } from '../../../firebase/hooks/useFirebase'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { DefaultCollection, DefaultSubCollection } from '../../../firebase/configs'
+import { ToastContext } from '../../../../providers/ToastProvider'
 
 type generateNodeProps = {
     newNodeLabel: string
@@ -22,6 +23,8 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
         condition: { useSubCollection: true },
     })
     const [nodeToRemoved, setNodeToRemoved] = useState('')
+    const { handleError } = useContext(ToastContext)
+
     const onSubmit = (newNodeLabel: string, onSeccuss: () => void) => {
         const newNode = generateNode({ newNodeLabel, parent: node })
         const values = {
@@ -31,9 +34,14 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
                 : `${col}/${node.id.split('-')[0]}/${subCol}/${node.id}/${subCol}`,
             customDocId: newNode.key,
         }
-        addData.mutateAsync(values).then(() => {
-            onSeccuss()
-        })
+        addData
+            .mutateAsync(values)
+            .then(() => {
+                onSeccuss()
+            })
+            .catch((error) => {
+                handleError(error)
+            })
     }
 
     const removeNode = (e: any, onSeccuss: () => void) => {
@@ -46,9 +54,14 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
                 ? `${col}/${parent.id}/${subCol}/${node.id}`
                 : `${col}/${parent.id?.split('-')[0]}/${subCol}/${parent.id}/${subCol}/${node.id}`,
         }
-        deleteData.mutateAsync(values).then(() => {
-            onSeccuss()
-        })
+        deleteData
+            .mutateAsync(values)
+            .then(() => {
+                onSeccuss()
+            })
+            .catch((error) => {
+                handleError(error)
+            })
     }
 
     return {

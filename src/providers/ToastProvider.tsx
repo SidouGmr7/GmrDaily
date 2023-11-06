@@ -29,8 +29,22 @@ const ToastProvider = ({ children }: React.PropsWithChildren) => {
         }
     }
 
+    const handleError = (error: any) => {
+        console.error('An error occurred:', error)
+        if (toast.current) {
+            toast.current.show({
+                summary: error.messege || 'there is an error in firebase',
+                severity: 'error',
+            })
+        } else {
+            console.warn('There is a problem with your toast')
+        }
+    }
+
     return (
-        <ToastContext.Provider value={{ toast, showToast, onSelection, setOnSelection }}>
+        <ToastContext.Provider
+            value={{ toast, showToast, handleError, onSelection, setOnSelection }}
+        >
             {children}
         </ToastContext.Provider>
     )

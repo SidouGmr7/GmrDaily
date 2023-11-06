@@ -1,7 +1,9 @@
-import { CheckBoxNodes, TreeNode } from '../types'
-import { useEffect, useState } from 'react'
-import { fetchSingleData, useFirebase } from '../../../../Resources/firebase/hooks/useFirebase'
+import { useEffect, useState, useContext } from 'react'
 import _ from 'lodash'
+
+import { fetchSingleData, useFirebase } from '../../../../Resources/firebase/hooks/useFirebase'
+import { ToastContext } from '../../../../providers/ToastProvider'
+import { CheckBoxNodes, TreeNode } from '../types'
 
 type UseCheckBoxNodeProps = {
     node?: TreeNode
@@ -11,7 +13,9 @@ type UseCheckBoxNodeProps = {
 export const useCheckBoxNode = ({ node, selectionKeys }: UseCheckBoxNodeProps) => {
     const { updateData } = useFirebase({ condition: { useSubCollection: true } })
     const [selectedKeys, setSelectedKeys] = useState<CheckBoxNodes>(null)
+    const [isProgress, setIsProgress] = useState<boolean>(false)
     const [isChecked, setIsChecked] = useState(false)
+    const { handleError, showToast } = useContext(ToastContext)
 
     useEffect(() => {
         if (selectionKeys && node?.key) {
@@ -27,16 +31,30 @@ export const useCheckBoxNode = ({ node, selectionKeys }: UseCheckBoxNodeProps) =
         _.isEmpty(selectionKeys) && fetchCheckBoxData()
     }, [])
 
-    const onSubmitCheckBox = (onSeccuss: () => void) => {
+    const onSubmitCheckBox = () => {
+        setIsProgress(true)
         const values = {
             data: { checkBox: selectedKeys },
             colRef: 'DataSource',
             docId: 'CheckBox',
         }
-        updateData.mutateAsync(values).then(() => {
-            onSeccuss()
-        })
+        updateData
+            .mutateAsync(values)
+            .then(() => {
+                showToast({ summary: 'update CheckBox' })
+                setIsProgress(false)
+            })
+            .catch((error) => {
+                setIsProgress(false)
+                handleError(error)
+            })
     }
 
-    return { selectedKeys, setSelectedKeys, isChecked, onSubmitCheckBox }
+    return {
+        selectedKeys,
+        setSelectedKeys,
+        isChecked,
+        onSubmitCheckBox,
+        isProgressCheckBox: isProgress,
+    }
 }

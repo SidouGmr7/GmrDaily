@@ -15,13 +15,15 @@ import { useLocalStorage } from './hooks/useLocalStorage'
 export default function TreeList() {
     const { data, addData } = useFirebase({ condition: { useSubCollection: true } })
     const { localStorageData } = useLocalStorage('nodes', data)
-    const { selectedKeys, setSelectedKeys, onSubmitCheckBox } = useCheckBoxNode({})
+    const { selectedKeys, setSelectedKeys, onSubmitCheckBox, isProgressCheckBox } = useCheckBoxNode({})
     // const [nodes, setNodes] = useState<TreeNode[] | undefined>([])
     const [openTextField, setOpenTextField] = useState(false)
     const [newNodeLabel, setNewNodeLabel] = useState('')
-    const { showToast, onSelection } = useContext(ToastContext)
+    const [isFetchingAddHead, setIsFetchingAddHead] = useState(false)
+    const { showToast, onSelection, handleError } = useContext(ToastContext)
 
     const onSubmit = () => {
+        setIsFetchingAddHead(true)
         const newNode = generateNode({ newNodeLabel, head: data })
 
         const values = {
@@ -30,11 +32,18 @@ export default function TreeList() {
             colRef: DefaultCollection,
         }
         if (newNodeLabel) {
-            addData.mutateAsync(values).then(() => {
-                showToast({ detail: values.data.label, summary: 'add New head Child' })
-                setOpenTextField(false)
-                setNewNodeLabel('')
-            })
+            addData
+                .mutateAsync(values)
+                .then(() => {
+                    showToast({ detail: values.data.label, summary: 'add New head Child' })
+                    setOpenTextField(false)
+                    setNewNodeLabel('')
+                    setIsFetchingAddHead(false)
+                })
+                .catch((error) => {
+                    setIsFetchingAddHead(false)
+                    handleError(error)
+                })
         } else {
             setOpenTextField(false)
         }
@@ -50,22 +59,25 @@ export default function TreeList() {
                     />
                 )}
                 <Button
-                    label='NewNode'
+                    icon={
+                        (!openTextField && !newNodeLabel) || newNodeLabel
+                            ? 'pi pi-plus'
+                            : 'pi pi-minus'
+                    }
                     severity={(!openTextField && !newNodeLabel) || newNodeLabel ? 'info' : 'danger'}
                     rounded
                     onClick={!openTextField ? () => setOpenTextField(true) : onSubmit}
+                    loading={isFetchingAddHead}
                 />
-
                 <Button
-                    label='CheckBox'
+                    icon='pi pi-cloud-download'
                     severity='info'
                     rounded
-                    onClick={() =>
-                        onSubmitCheckBox(() => showToast({ summary: 'update CheckBox' }))
-                    }
+                    loading={isProgressCheckBox}
+                    onClick={onSubmitCheckBox}
                 />
                 <Button
-                    label={data ? 'Firebase' : 'LocalStorage'}
+                    icon={data ? 'pi pi-verified' : 'pi pi-times-circle'}
                     severity={data ? 'info' : 'danger'}
                     rounded
                 />

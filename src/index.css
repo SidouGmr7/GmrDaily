@@ -16,7 +16,7 @@ body {
 
     .p-progressbar-label {
         font-size: 0.9rem;
-        margin-top: 0.1rem;
+        margin-top: 0.2rem;
         position: absolute !important;
         left: 50% !important;
     }
@@ -62,6 +62,9 @@ body {
 
 .p-progressbar-determinate .p-progressbar-value {
     overflow: unset !important;
+}
+.p-progressbar .p-progressbar-label {
+    color: black !important;
 }
 
 /* .p-tabview .p-tabview-panels {

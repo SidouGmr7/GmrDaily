@@ -7,9 +7,9 @@ import { useContext, useState } from 'react'
 import { ToastContext } from '../../../providers/ToastProvider'
 import { Dialog } from 'primereact/dialog'
 import { Button } from 'primereact/button'
-import { ProgressSpinner } from 'primereact/progressspinner'
 import { useFirebase } from '../../../Resources/firebase/hooks/useFirebase'
 import _ from 'lodash'
+import { Grid } from '@mui/material'
 
 type AddChildNodeFormProps = {
     parent: TreeNode
@@ -43,6 +43,7 @@ export default function AddChildNodeForm({ parent, node }: AddChildNodeFormProps
                     summary: 'add newChild',
                 })
                 setOpenDialog(false)
+                setOnSelection(true)
             })
             formik.resetForm()
         },
@@ -55,18 +56,13 @@ export default function AddChildNodeForm({ parent, node }: AddChildNodeFormProps
     }
 
     const handleRemove = (e: any) => {
-        e.stopPropagation()
-        if (_.isEmpty(node.children)) {
-            removeNode(e, () => showToast({ summary: 'Data Deleted', detail: node.label }))
-        } else {
-            showToast({ severity: 'warn', summary: 'This node is not empty', detail: node.label })
-        }
+        removeNode(e, () => showToast({ summary: 'Data Deleted', detail: node.label }))
     }
 
     return (
         <FormikProvider value={formik}>
-            {true && (
-                <div>
+            <Grid>
+                {node.children && (
                     <Button
                         icon='pi pi-plus'
                         onClick={handleOpen}
@@ -75,19 +71,18 @@ export default function AddChildNodeForm({ parent, node }: AddChildNodeFormProps
                         outlined
                         size='small'
                     />
-                    {isFetching && nodeToRemoved === node.id ? (
-                        <ProgressSpinner style={{ width: '30px', height: '30px' }} />
-                    ) : (
-                        <Button
-                            icon='pi pi-minus'
-                            rounded
-                            text
-                            severity='danger'
-                            onClick={handleRemove}
-                        />
-                    )}
-                </div>
-            )}
+                )}
+
+                <Button
+                    icon='pi pi-minus'
+                    rounded
+                    text
+                    severity='danger'
+                    onClick={handleRemove}
+                    loading={isFetching && nodeToRemoved === node.id}
+                    disabled={!_.isEmpty(node.children)}
+                />
+            </Grid>
             <Dialog
                 header='Add new Task'
                 visible={openDialog}
@@ -96,7 +91,7 @@ export default function AddChildNodeForm({ parent, node }: AddChildNodeFormProps
                     setOnSelection(true)
                 }}
             >
-                <div className='card flex justify-content-center'>
+                <Grid className='card flex justify-content-center'>
                     <form onSubmit={formik.handleSubmit} className='flex flex-column'>
                         <Field
                             as={InputText}
@@ -104,13 +99,17 @@ export default function AddChildNodeForm({ parent, node }: AddChildNodeFormProps
                             value={formik.values.newLableNode || ''}
                             className='p-inputtext-sm'
                         />
-                        {isFetching ? (
-                            <ProgressSpinner style={{ width: '30px', height: '30px' }} />
-                        ) : (
-                            <Button icon='pi pi-plus' rounded text severity='info' type='submit' />
-                        )}
+                        <Button
+                            icon='pi pi-plus'
+                            rounded
+                            text
+                            severity='info'
+                            type='submit'
+                            loading={isFetching}
+                            disabled={!formik.values.newLableNode}
+                        />
                     </form>
-                </div>
+                </Grid>
             </Dialog>
         </FormikProvider>
     )
