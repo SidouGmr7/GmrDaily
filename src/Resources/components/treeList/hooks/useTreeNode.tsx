@@ -94,7 +94,6 @@ export const generateNode = ({ dataNode, head, parent }: generateNodeProps) => {
     const generatedNode = {
         key,
         label: dataNode.newLableNode,
-        icon: 'pi pi-fw pi-inbox', // to work
         expanded: false,
         ...(parent && parent.id?.length === 1 && { children: [] }),
         ...(dataNode.url && { url: dataNode.url }),

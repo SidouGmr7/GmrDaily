@@ -11,6 +11,7 @@ import { useCheckBoxNode } from './hooks/useCheckBoxNode'
 import { ToastContext } from '../../../providers/ToastProvider'
 import { useContext } from 'react'
 import { useLocalStorage } from './hooks/useLocalStorage'
+import _ from 'lodash'
 
 export default function TreeList() {
     const { data, addData } = useFirebase({ condition: { useSubCollection: true } })
@@ -23,7 +24,8 @@ export default function TreeList() {
     const [newLableNode, setNewNodeLabel] = useState('')
     const [isFetchingAddHead, setIsFetchingAddHead] = useState(false)
     const { showToast, onSelection, handleError } = useContext(ToastContext)
-
+    const nodes = _.orderBy(data || localStorageData, ['createdAt'], ['asc'])
+    
     const onSubmit = () => {
         setIsFetchingAddHead(true)
         const dataNode = { newLableNode }
@@ -88,7 +90,7 @@ export default function TreeList() {
             </div>
             <div>
                 <Tree
-                    value={data || localStorageData}
+                    value={nodes}
                     className='w-full'
                     filter
                     filterMode='strict'
