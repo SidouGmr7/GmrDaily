@@ -20,13 +20,14 @@ export default function TreeList() {
     )
     // const [nodes, setNodes] = useState<TreeNode[] | undefined>([])
     const [openTextField, setOpenTextField] = useState(false)
-    const [newNodeLabel, setNewNodeLabel] = useState('')
+    const [newLableNode, setNewNodeLabel] = useState('')
     const [isFetchingAddHead, setIsFetchingAddHead] = useState(false)
     const { showToast, onSelection, handleError } = useContext(ToastContext)
 
     const onSubmit = () => {
         setIsFetchingAddHead(true)
-        const newNode = generateNode({ newNodeLabel, head: data })
+        const dataNode = { newLableNode }
+        const newNode = generateNode({ dataNode, head: data })
 
         const values = {
             data: newNode,
@@ -52,21 +53,21 @@ export default function TreeList() {
             <div className='mt-2 flex justify-center mb-4 space-x-2'>
                 {openTextField && (
                     <InputText
-                        value={newNodeLabel}
+                        value={newLableNode}
                         onChange={(e) => setNewNodeLabel(e.target.value)}
                         autoFocus
                     />
                 )}
                 <Button
                     icon={
-                        (!openTextField && !newNodeLabel) || newNodeLabel
+                        (!openTextField && !newLableNode) || newLableNode
                             ? 'pi pi-plus'
                             : 'pi pi-minus'
                     }
-                    severity={(!openTextField && !newNodeLabel) || newNodeLabel ? 'info' : 'danger'}
+                    severity={(!openTextField && !newLableNode) || newLableNode ? 'info' : 'danger'}
                     rounded
                     onClick={
-                        !openTextField || !newNodeLabel
+                        !openTextField || !newLableNode
                             ? () => setOpenTextField((prev) => !prev)
                             : onSubmit
                     }

@@ -12,6 +12,7 @@ export type TreeNode = defaultTreeNode & {
     children?: TreeNode[] | undefined
     action?: string
     length?: number
+    url?: string
 }
 
 export type NodeTemplateProps = {

@@ -5,7 +5,7 @@ import { DefaultCollection, DefaultSubCollection } from '../../../firebase/confi
 import { ToastContext } from '../../../../providers/ToastProvider'
 
 type generateNodeProps = {
-    newNodeLabel: string
+    dataNode: DataNodeProps
     head?: TreeNode[]
     parent?: TreeNode
 }
@@ -18,6 +18,11 @@ type UseTreeNodeProps = {
     parent: TreeNode
 }
 
+type DataNodeProps = {
+    newLableNode: string
+    url?: string
+}
+
 export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
     const { addData, deleteData } = useFirebase({
         condition: { useSubCollection: true },
@@ -25,8 +30,8 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
     const [nodeToRemoved, setNodeToRemoved] = useState('')
     const { handleError } = useContext(ToastContext)
 
-    const onSubmit = (newNodeLabel: string, onSeccuss: () => void) => {
-        const newNode = generateNode({ newNodeLabel, parent: node })
+    const onSubmit = (dataNode: DataNodeProps, onSeccuss: () => void) => {
+        const newNode = generateNode({ dataNode, parent: node })
         const values = {
             data: newNode,
             colRef: !node.id?.includes('-')
@@ -71,7 +76,7 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
     }
 }
 
-export const generateNode = ({ newNodeLabel, head, parent }: generateNodeProps) => {
+export const generateNode = ({ dataNode, head, parent }: generateNodeProps) => {
     let key
     if (head) {
         key = head.length ? String(Number(head[head.length - 1].key) + 1) : '1'
@@ -88,10 +93,11 @@ export const generateNode = ({ newNodeLabel, head, parent }: generateNodeProps) 
     }
     const generatedNode = {
         key,
-        label: newNodeLabel,
+        label: dataNode.newLableNode,
         icon: 'pi pi-fw pi-inbox', // to work
         expanded: false,
         ...(parent && parent.id?.length === 1 && { children: [] }),
+        ...(dataNode.url && { url: dataNode.url }),
     }
 
     return generatedNode
