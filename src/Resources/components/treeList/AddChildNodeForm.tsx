@@ -98,6 +98,7 @@ export default function AddChildNodeForm({ parent, node }: AddChildNodeFormProps
                             name='newLableNode'
                             value={formik.values.newLableNode || ''}
                             className='p-inputtext-sm'
+                            autoFocus
                         />
                         <Button
                             icon='pi pi-plus'

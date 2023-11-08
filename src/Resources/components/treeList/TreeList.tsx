@@ -54,6 +54,7 @@ export default function TreeList() {
                     <InputText
                         value={newNodeLabel}
                         onChange={(e) => setNewNodeLabel(e.target.value)}
+                        autoFocus
                     />
                 )}
                 <Button

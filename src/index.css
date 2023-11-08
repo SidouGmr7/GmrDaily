@@ -67,6 +67,10 @@ body {
     color: black !important;
 }
 
+.p-tree .p-tree-container .p-treenode .p-treenode-content .p-tree-toggler:focus {
+    box-shadow: unset !important;
+}
+
 /* .p-tabview .p-tabview-panels {
     background-color: #111827 !important;
 }
@@ -83,11 +87,31 @@ body {
     background-color: #111827 !important;
 }
 
-.p-tree{
+.p-tree {
     background-color: #111827 !important;
-    border: unset !important
+    border: unset !important;
 }
 
-.p-inputtext{
+.p-inputtext {
     background-color: #111827 !important;
+} */
+/* 
+.p-component,
+.p-component * {
+    color: aliceblue !important;
+}
+
+.p-tree
+    .p-tree-container
+    .p-treenode
+    .p-treenode-content.p-treenode-selectable:not(.p-highlight):hover {
+    background: #3b82f6 !important;
+}
+
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
+    background: #3b82f6 !important;
+}
+
+.p-tree .p-tree-container .p-treenode .p-treenode-content:focus {
+    box-shadow: unset !important;
 } */
