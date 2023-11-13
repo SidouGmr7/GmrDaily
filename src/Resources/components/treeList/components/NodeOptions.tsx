@@ -1,13 +1,13 @@
-import { useContext, useState } from 'react'
-import { TreeNode } from '../types'
+import { useState } from 'react'
 import { Button } from 'primereact/button'
 import { Grid } from '@mui/material'
 import _ from 'lodash'
 
+import { TreeNode } from '../types'
 import { useTreeNode } from '../hooks/useTreeNode'
-import { useFirebase } from '../../../firebase/hooks/useFirebase'
 import AddChildNodeForm from './AddChildNodeForm'
-import { ToastContext } from '../../../../providers/ToastProvider'
+import { useToastModel } from '@/Resources/hooks/use-toast-modal'
+import { useFirebase } from '@/Resources/firebase/hooks/useFirebase'
 
 type NodeOptionsProps = {
     parent: TreeNode
@@ -19,7 +19,7 @@ export function NodeOptions({ parent, node }: NodeOptionsProps) {
     const { isFetching } = useFirebase({
         condition: { useSubCollection: true },
     })
-    const { showToast, setOnSelection } = useContext(ToastContext)
+    const { showToast, setOnSelection } = useToastModel()
     const [openDialog, setOpenDialog] = useState(false)
 
     const handleOpen = (e: any) => {

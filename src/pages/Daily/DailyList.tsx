@@ -1,10 +1,10 @@
-import { useContext } from 'react'
 import { Toast } from 'primereact/toast'
-import { ToastContext } from '../../providers/ToastProvider'
-import TreeList from '../../Resources/components/treeList/TreeList'
+
+import { useToastModel } from '@/Resources/hooks/use-toast-modal'
+import TreeList from '@/Resources/components/treeList/TreeList'
 
 export const DailyList = () => {
-    const { toast } = useContext(ToastContext)
+    const { toast } = useToastModel()
 
     return (
         <div className='flex flex-col'>

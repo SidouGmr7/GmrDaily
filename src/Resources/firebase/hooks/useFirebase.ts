@@ -11,6 +11,7 @@ import {
     serverTimestamp,
     // where,
     setDoc,
+    orderBy,
 } from 'firebase/firestore'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { db, DefaultCollection, DefaultSubCollection } from '../configs'
@@ -86,7 +87,7 @@ export const fetchCollectionData = async ({
     const { useSubCollection /*useFilterByProps*/ } = condition
     const collectionRef = collection(db, colRef)
 
-    let queryBuilder = query(collectionRef)
+    let queryBuilder = query(collectionRef, orderBy('createdAt', 'asc'));
     // if (useFilterByProps) {
     //     queryBuilder = query(queryBuilder, where('typeName', '==', typeName))
     // }

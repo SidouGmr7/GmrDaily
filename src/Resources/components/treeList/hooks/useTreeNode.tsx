@@ -1,8 +1,9 @@
+import { useState } from 'react'
+
+import { useToastModel } from '@/Resources/hooks/use-toast-modal'
+import { useFirebase } from '@/Resources/firebase/hooks/useFirebase'
+import { DefaultCollection, DefaultSubCollection } from '@/Resources/firebase/configs'
 import { TreeNode } from '../types'
-import { useFirebase } from '../../../firebase/hooks/useFirebase'
-import { useContext, useState } from 'react'
-import { DefaultCollection, DefaultSubCollection } from '../../../firebase/configs'
-import { ToastContext } from '../../../../providers/ToastProvider'
 
 type generateNodeProps = {
     dataNode: DataNodeProps
@@ -28,7 +29,7 @@ export const useTreeNode = ({ node, parent }: UseTreeNodeProps) => {
         condition: { useSubCollection: true },
     })
     const [nodeToRemoved, setNodeToRemoved] = useState('')
-    const { handleError } = useContext(ToastContext)
+    const { handleError } = useToastModel()
 
     const onSubmit = (dataNode: DataNodeProps, onSeccuss: () => void) => {
         const newNode = generateNode({ dataNode, parent: node })

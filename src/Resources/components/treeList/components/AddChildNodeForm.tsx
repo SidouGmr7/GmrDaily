@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { Field, FormikProvider, useFormik } from 'formik'
 import { Grid } from '@mui/material'
 import { InputText } from 'primereact/inputtext'
@@ -6,12 +6,11 @@ import { TreeNode } from 'primereact/treenode'
 import { Dialog } from 'primereact/dialog'
 import { Button } from 'primereact/button'
 import { InputSwitch } from 'primereact/inputswitch'
-
 import _ from 'lodash'
 
+import { useToastModel } from '@/Resources/hooks/use-toast-modal'
+import { useFirebase } from '@/Resources/firebase/hooks/useFirebase'
 import { useTreeNode } from '../hooks/useTreeNode'
-import { ToastContext } from '../../../../providers/ToastProvider'
-import { useFirebase } from '../../../firebase/hooks/useFirebase'
 
 type AddChildNodeFormProps = {
     parent: TreeNode
@@ -30,7 +29,7 @@ export default function AddChildNodeForm({
     const { isFetching } = useFirebase({
         condition: { useSubCollection: true },
     })
-    const { showToast, setOnSelection } = useContext(ToastContext)
+    const { showToast, setOnSelection } = useToastModel()
     const [opentUrlField, setOpentUrlField] = useState(false)
 
     const formik = useFormik({
@@ -74,6 +73,7 @@ export default function AddChildNodeForm({
                 onHide={() => {
                     setOpenDialog(false)
                     setOnSelection(true)
+                    setOpentUrlField(false)
                 }}
             >
                 <Grid className='card flex justify-content-center'>

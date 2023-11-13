@@ -1,17 +1,17 @@
 import { useState } from 'react'
 import { Tree } from 'primereact/tree'
-import { Options } from './types'
-import { nodeTemplate } from './NodeTemplate'
-import { useFirebase } from '../../../Resources/firebase/hooks/useFirebase'
 import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
-import { generateNode } from './hooks/useTreeNode'
-import { DefaultCollection } from '../../../Resources/firebase/configs'
-import { useCheckBoxNode } from './hooks/useCheckBoxNode'
-import { ToastContext } from '../../../providers/ToastProvider'
-import { useContext } from 'react'
-import { useLocalStorage } from './hooks/useLocalStorage'
 import _ from 'lodash'
+
+import { Options } from './types'
+import { nodeTemplate } from './NodeTemplate'
+import { generateNode } from './hooks/useTreeNode'
+import { useCheckBoxNode } from './hooks/useCheckBoxNode'
+import { useLocalStorage } from './hooks/useLocalStorage'
+import { useToastModel } from '@/Resources/hooks/use-toast-modal'
+import { useFirebase } from '@/Resources/firebase/hooks/useFirebase'
+import { DefaultCollection } from '@/Resources/firebase/configs'
 
 export default function TreeList() {
     const { data, addData } = useFirebase({ condition: { useSubCollection: true } })
@@ -23,9 +23,9 @@ export default function TreeList() {
     const [openTextField, setOpenTextField] = useState(false)
     const [newLableNode, setNewNodeLabel] = useState('')
     const [isFetchingAddHead, setIsFetchingAddHead] = useState(false)
-    const { showToast, onSelection, handleError } = useContext(ToastContext)
-    const nodes = _.orderBy(data || localStorageData, ['createdAt'], ['asc'])
-    
+    const { showToast, onSelection, handleError } = useToastModel()
+    const nodes = data || localStorageData
+
     const onSubmit = () => {
         setIsFetchingAddHead(true)
         const dataNode = { newLableNode }

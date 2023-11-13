@@ -5,12 +5,9 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import 'primereact/resources/primereact.css'
 import 'primeicons/primeicons.css'
 import ReactQueryProvider from './providers/ReactQueryProvider'
-import { ToastProvider } from './providers/ToastProvider.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <ReactQueryProvider>
-        <ToastProvider>
-            <Routes />
-        </ToastProvider>
+        <Routes />
     </ReactQueryProvider>
 )

@@ -1,8 +1,8 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState } from 'react'
 import _ from 'lodash'
 
-import { fetchSingleData, useFirebase } from '../../../../Resources/firebase/hooks/useFirebase'
-import { ToastContext } from '../../../../providers/ToastProvider'
+import { useToastModel } from '@/Resources/hooks/use-toast-modal'
+import { fetchSingleData, useFirebase } from '@/Resources/firebase/hooks/useFirebase'
 import { CheckBoxNodes, TreeNode } from '../types'
 
 type UseCheckBoxNodeProps = {
@@ -15,7 +15,7 @@ export const useCheckBoxNode = ({ node, selectionKeys }: UseCheckBoxNodeProps) =
     const [selectedKeys, setSelectedKeys] = useState<CheckBoxNodes>(null)
     const [isProgress, setIsProgress] = useState<boolean>(false)
     const [isChecked, setIsChecked] = useState(false)
-    const { handleError, showToast } = useContext(ToastContext)
+    const { handleError, showToast } = useToastModel()
 
     useEffect(() => {
         if (selectionKeys && node?.key) {
