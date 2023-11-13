@@ -1,6 +1,7 @@
-import { TreeNode } from '../types'
 import { useEffect, useState } from 'react'
 import _ from 'lodash'
+
+import { TreeNode } from '../types'
 
 type UseProgressNodeProps = {
     node: TreeNode
@@ -14,19 +15,19 @@ export const useProgressNode = ({ node, selectionKeys }: UseProgressNodeProps) =
         setProgress(0)
         if (node.children?.length && selectionKeys) {
             node.children.forEach((child) => {
-                if (child.key && selectionKeys[child.key]?.checked) {
+                const checked = child.key && selectionKeys[child.key]?.checked
+                const partialChecked = child.key && selectionKeys[child.key]?.partialChecked
+                if (checked || partialChecked) {
                     const children = node.children as TreeNode[]
                     setProgress((prev: any) => {
-                        return prev + 1 / children.length
+                        return prev + (checked ? 1 : 0.5) / children.length
                     })
                 }
             })
         }
         if (_.isEmpty(node.children) && node.key && selectionKeys) {
             const key = node.key
-            setProgress(() => {
-                return selectionKeys[key]?.checked ? 1 : 0
-            })
+            setProgress(!!selectionKeys[key]?.checked)
         }
     }, [JSON.stringify(selectionKeys)])
 
