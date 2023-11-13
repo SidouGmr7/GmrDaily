@@ -29,7 +29,7 @@ export const useProgressNode = ({ node, selectionKeys }: UseProgressNodeProps) =
             const key = node.key
             setProgress(!!selectionKeys[key]?.checked)
         }
-    }, [JSON.stringify(selectionKeys)])
+    }, [JSON.stringify(selectionKeys), JSON.stringify(node)])
 
     return { progress: (progress * 100).toFixed(0) }
 }
