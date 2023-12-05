@@ -10,7 +10,7 @@ export function useLocalStorage(key: string, initialValue: any) {
     }
     useEffect(() => {
         if (initialValue && !_.isEmpty(initialValue)) {
-            localStorage.setItem('nodes', JSON.stringify(initialValue))
+            localStorage.setItem(key, JSON.stringify(initialValue))
         }
     }, [initialValue])
 

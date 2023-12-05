@@ -15,7 +15,7 @@ import { DefaultCollection } from '@/Resources/firebase/configs'
 
 export default function TreeList() {
     const { data, addData } = useFirebase({ condition: { useSubCollection: true } })
-    const { localStorageData } = useLocalStorage('nodes', data)
+    const { localStorageData } = useLocalStorage(DefaultCollection, data)
     const { selectedKeys, setSelectedKeys, onSubmitCheckBox, isProgressCheckBox } = useCheckBoxNode(
         {}
     )
@@ -24,12 +24,12 @@ export default function TreeList() {
     const [newLableNode, setNewNodeLabel] = useState('')
     const [isFetchingAddHead, setIsFetchingAddHead] = useState(false)
     const { showToast, onSelection, handleError } = useToastModel()
-    const nodes = data || localStorageData
+    const nodes = _.sortBy(data || localStorageData, (node) => Number(node.key))
 
     const onSubmit = () => {
         setIsFetchingAddHead(true)
         const dataNode = { newLableNode }
-        const newNode = generateNode({ dataNode, head: data })
+        const newNode = generateNode({ dataNode, head: nodes })
 
         const values = {
             data: newNode,

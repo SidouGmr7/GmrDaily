@@ -3,6 +3,7 @@ import _ from 'lodash'
 
 import { useToastModel } from '@/Resources/hooks/use-toast-modal'
 import { fetchSingleData, useFirebase } from '@/Resources/firebase/hooks/useFirebase'
+import { DefaultDataSource } from '@/Resources/firebase/configs'
 import { CheckBoxNodes, TreeNode } from '../types'
 
 type UseCheckBoxNodeProps = {
@@ -25,7 +26,7 @@ export const useCheckBoxNode = ({ node, selectionKeys }: UseCheckBoxNodeProps) =
 
     useEffect(() => {
         const fetchCheckBoxData = async () => {
-            const checkBoxData = await fetchSingleData({ colRef: 'DataSource', docId: 'CheckBox' })
+            const checkBoxData = await fetchSingleData(DefaultDataSource)
             setSelectedKeys(checkBoxData.checkBox)
         }
         _.isEmpty(selectionKeys) && fetchCheckBoxData()
@@ -35,13 +36,12 @@ export const useCheckBoxNode = ({ node, selectionKeys }: UseCheckBoxNodeProps) =
         setIsProgress(true)
         const values = {
             data: { checkBox: selectedKeys },
-            colRef: 'DataSource',
-            docId: 'CheckBox',
+            ...DefaultDataSource,
         }
         updateData
             .mutateAsync(values)
             .then(() => {
-                showToast({ summary: 'update CheckBox' })
+                showToast({ summary: `update ${DefaultDataSource.docId}` })
                 setIsProgress(false)
             })
             .catch((error) => {

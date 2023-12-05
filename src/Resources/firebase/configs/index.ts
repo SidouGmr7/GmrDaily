@@ -24,3 +24,7 @@ export const storage = getStorage()
 
 export const DefaultCollection = 'React'
 export const DefaultSubCollection = 'Children'
+export const DefaultDataSource = {
+    colRef: 'DataSource',
+    docId: 'CheckBox',
+}

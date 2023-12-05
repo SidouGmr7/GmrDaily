@@ -1,58 +1,15 @@
-// import { DailyList } from "./DailyList"
-import { TabView, /*TabPanel*/ } from "primereact/tabview"
-import _ from "lodash"
-// import { useEffect, useState } from "react"
-// import { Button } from "primereact/button"
-// import { InputText } from "primereact/inputtext"
+import { Toast } from 'primereact/toast'
+
+import { useToastModel } from '@/Resources/hooks/use-toast-modal'
+import TreeList from '@/Resources/components/treeList/TreeList'
 
 export const Tasks = () => {
-    // const { data } = useCRUD()
-    // const [types, setTypes] = useState<any>([])
-    // const [value, setvalue] = useState("")
-    // const [openInput, setOpenInput] = useState(false)
-
-    // useEffect(() => {
-    //     if (data) {
-    //         setTypes([...new Set(data?.map((item: any) => item.type))])
-    //     }
-    // }, [data])
-
-    // const AdditionalTab = () => {
-    //     return (
-    //         <div className='flext items-center  mt-2'>
-    //             {openInput && (
-    //                 <InputText
-    //                     style={{ width: "80px", height: "32px" }}
-    //                     value={value}
-    //                     onChange={(e) => setvalue(e.target.value)}
-    //                     onKeyDown={(e) => {
-    //                         if (e.key === "Enter") {
-    //                             if (value) {
-    //                                 setTypes([...types, value])
-    //                                 setvalue("")
-    //                                 setOpenInput(false)
-    //                             }
-    //                         }
-    //                     }}
-    //                 />
-    //             )}{" "}
-    //             <Button
-    //                 label={openInput ? "-" : "+"}
-    //                 className='w-4 h-8 flex justify-center'
-    //                 onClick={() => setOpenInput(!openInput)}></Button>
-    //         </div>
-    //     )
-    // }
+    const { toast } = useToastModel()
 
     return (
-        <TabView scrollable>
-            test
-            {/* {types?.map((tab: any) => (
-                <TabPanel header={tab}>
-                    <DailyList taskType={tab} />
-                </TabPanel>
-            ))}
-            <TabPanel headerTemplate={AdditionalTab}></TabPanel> */}
-        </TabView>
+        <div className='flex flex-col'>
+            <TreeList />
+            <Toast ref={toast} position='bottom-right' />
+        </div>
     )
 }
