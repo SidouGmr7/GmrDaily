@@ -18,6 +18,7 @@
         "@tanstack/react-query-devtools": "^4.33.0",
         "@types/lodash": "^4.14.194",
         "@types/material-ui": "^0.21.12",
+        "axios": "^1.6.2",
         "chart.js": "^4.3.0",
         "firebase": "^10.3.0",
         "formik": "^2.4.5",
