@@ -3,12 +3,10 @@ import { Button } from 'primereact/button'
 import { Grid } from '@mui/material'
 import _ from 'lodash'
 
+import { useSelectionModel } from '../state/use-selection-model'
 import { TreeNode } from '../types'
-// import { useTreeNode } from '../hooks/useTreeNode'
 import AddChildNodeForm from './AddChildNodeForm'
-import { useToastModel } from '@/Resources/hooks/use-toast-modal'
 import { useNodesQuery } from '../hooks/useNodesQuery'
-// import { useFirebase } from '@/Resources/firebase/hooks/useFirebase'
 
 type NodeOptionsProps = {
     parent: TreeNode
@@ -16,9 +14,8 @@ type NodeOptionsProps = {
 }
 
 export function NodeOptions({ parent, node }: NodeOptionsProps) {
-    // const { removeNode, nodeToRemoved } = useTreeNode({ parent, node })
-    const { deleteNode } = useNodesQuery()
-    const { showToast, setOnSelection } = useToastModel()
+    const { delete: deleteNode } = useNodesQuery({ endpoint: 'node' })
+    const { setOnSelection } = useSelectionModel()
     const [openDialog, setOpenDialog] = useState(false)
     const [nodeToRemoved, setNodeToRemoved] = useState('')
 
@@ -31,10 +28,7 @@ export function NodeOptions({ parent, node }: NodeOptionsProps) {
     const handleRemove = (e: any) => {
         e.stopPropagation()
         setNodeToRemoved(node._id || '')
-        deleteNode({
-            id: node._id,
-            onSuccess: () => showToast({ summary: 'Data Deleted', detail: node.label }),
-        })
+        deleteNode({ id: node._id, toastMessage: 'data deleted', toastData: node.label })
     }
 
     const handleOpenLink = (e: any) => {

@@ -2,13 +2,13 @@ import { useState } from 'react'
 import { Field, FormikProvider, useFormik } from 'formik'
 import { Grid } from '@mui/material'
 import { InputText } from 'primereact/inputtext'
-import { TreeNode } from '../types'
 import { Dialog } from 'primereact/dialog'
 import { Button } from 'primereact/button'
 import { InputSwitch } from 'primereact/inputswitch'
 import _ from 'lodash'
 
-import { useToastModel } from '@/Resources/hooks/use-toast-modal'
+import { useSelectionModel } from '../state/use-selection-model'
+import { TreeNode } from '../types'
 import { useNodesQuery } from '../hooks/useNodesQuery'
 
 type AddChildNodeFormProps = {
@@ -19,17 +19,12 @@ type AddChildNodeFormProps = {
 }
 
 export default function AddChildNodeForm({
-    parent,
     node,
     openDialog,
     setOpenDialog,
 }: AddChildNodeFormProps) {
-    // const { onSubmit } = useTreeNode({ parent, node })
-    // const { isFetching } = useFirebase({
-    //     condition: { useSubCollection: true },
-    // })
-    const { showToast, setOnSelection } = useToastModel()
-    const { createNode, isFetchingCreateNode } = useNodesQuery()
+    const { setOnSelection } = useSelectionModel()
+    const { create: createNode, isAddLoading: isLoadingCreateNode } = useNodesQuery({ endpoint: 'node' })
     const [opentUrlField, setOpentUrlField] = useState(false)
     const formik = useFormik({
         initialValues: {
@@ -45,12 +40,10 @@ export default function AddChildNodeForm({
         },
         onSubmit: (dataNode) => {
             createNode({
-                newNodeValues: { ...dataNode, _ref: node._id, parentKey: node.key },
+                data: { ...dataNode, _ref: node._id, parentKey: node.key },
+                toastMessage: 'add newChild',
+                toastData: `${dataNode.label} to ${node.label}`,
                 onSuccess: () => {
-                    showToast({
-                        detail: `${dataNode.label} to ${node.label}`,
-                        summary: 'add newChild',
-                    })
                     setOpenDialog(false)
                     setOnSelection(true)
                 },
@@ -104,7 +97,7 @@ export default function AddChildNodeForm({
                             text
                             severity='info'
                             type='submit'
-                            loading={isFetchingCreateNode}
+                            loading={isLoadingCreateNode}
                             disabled={!formik.values.label}
                         />
                     </form>

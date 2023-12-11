@@ -22,7 +22,8 @@ export const useToastModel = create<ToastModel>((set) => ({
         set((state) => {
             if (state.toast.current) {
                 state.toast.current.show({
-                    severity: props.severity || 'success',
+                    severity: 'success',
+                    summary: 'successfuly',
                     ...props,
                 })
             } else {
