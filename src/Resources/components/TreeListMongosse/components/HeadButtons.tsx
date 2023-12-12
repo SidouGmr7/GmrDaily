@@ -26,6 +26,7 @@ export const HeadButtons = () => {
     })
     const { selectedKeys, setSelectedKeys } = useCheckboxDataModel()
     const { setLastNodeCreated } = useNodesDataModel()
+    const { setLastNodeDeleted, LastNodeDeletedStored } = useNodesDataModel()
 
     const [openTextField, setOpenTextField] = useState(false)
     const [newLableNode, setNewNodeLabel] = useState('')
@@ -58,6 +59,23 @@ export const HeadButtons = () => {
         })
     }
 
+    const onRestoreDataNode = () => {
+        if (LastNodeDeletedStored) {
+            createNode({
+                data: {
+                    label: LastNodeDeletedStored.label,
+                    _ref: LastNodeDeletedStored._ref,
+                    key: LastNodeDeletedStored.key,
+                },
+                toastMessage: 'add New head Child',
+                toastData: newLableNode,
+                onSuccess: () => {
+                    setLastNodeDeleted('')
+                },
+            })
+        }
+    }
+
     return (
         <div className='mt-2 flex justify-center mb-4 space-x-2'>
             {openTextField && (
@@ -78,7 +96,7 @@ export const HeadButtons = () => {
                         ? () => setOpenTextField((prev) => !prev)
                         : onSubmitNode
                 }
-                loading={isAddLoading}
+                loading={!LastNodeDeletedStored && isAddLoading}
             />
             <Button
                 icon='pi pi-cloud-download'
@@ -93,6 +111,15 @@ export const HeadButtons = () => {
                 severity={!isFetching ? 'info' : 'danger'}
                 rounded
             />
+            {!!LastNodeDeletedStored && (
+                <Button
+                    icon='pi pi-undo'
+                    severity='warning'
+                    rounded
+                    loading={LastNodeDeletedStored && isAddLoading}
+                    onClick={onRestoreDataNode}
+                />
+            )}
         </div>
     )
 }

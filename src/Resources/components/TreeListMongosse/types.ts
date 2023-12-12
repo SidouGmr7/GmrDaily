@@ -14,6 +14,7 @@ export type TreeNode = defaultTreeNode & {
     length?: number
     url?: string
     _id?: string
+    _ref?: string
 }
 
 export type NodeTemplateProps = {

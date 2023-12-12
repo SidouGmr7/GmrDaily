@@ -3,10 +3,11 @@ import { Button } from 'primereact/button'
 import { Grid } from '@mui/material'
 import _ from 'lodash'
 
+import { useDataQuery } from '@/Resources/fetchData/useDataQuery'
 import { useSelectionModel } from '../state/use-selection-model'
 import { TreeNode } from '../types'
 import AddChildNodeForm from './AddChildNodeForm'
-import { useDataQuery } from '@/Resources/fetchData/useDataQuery'
+import { useNodesDataModel } from '../state/use-nodes-data-modal'
 
 type NodeOptionsProps = {
     parent: TreeNode
@@ -15,6 +16,7 @@ type NodeOptionsProps = {
 
 export function NodeOptions({ parent, node }: NodeOptionsProps) {
     const { delete: deleteNode, isDeleteLoading } = useDataQuery({ endpoint: 'node' })
+    const { setLastNodeDeleted } = useNodesDataModel()
     const { setOnSelection } = useSelectionModel()
     const [openDialog, setOpenDialog] = useState(false)
     const [nodeToRemoved, setNodeToRemoved] = useState('')
@@ -28,7 +30,14 @@ export function NodeOptions({ parent, node }: NodeOptionsProps) {
     const handleRemove = (e: any) => {
         e.stopPropagation()
         setNodeToRemoved(node._id || '')
-        deleteNode({ id: node._id, toastMessage: 'data deleted', toastData: node.label })
+        deleteNode({
+            id: node._id,
+            toastMessage: 'data deleted',
+            toastData: node.label,
+            onSuccess: (data) => {
+                setLastNodeDeleted(data.removedData)
+            },
+        })
     }
 
     const handleOpenLink = (e: any) => {
