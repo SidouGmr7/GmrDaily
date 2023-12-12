@@ -1,2 +1,2 @@
-export const BASE_API_URL = "http://localhost:3001/api/"
-export const CHECKBOX_DOC_ID = '657789ff8b1f7149bc298872'
+export const BASE_API_URL = import.meta.env.VITE_BASE_API_URL
+export const CHECKBOX_DOC_ID = import.meta.env.VITE_CHECKBOX_DOC_ID

@@ -2,8 +2,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useToastModel } from '@/Resources/hooks/use-toast-modal'
 import { axiosData } from '@/Resources/fetchData/axios'
 
-type useNodesQueryProps = {
+type useDataQueryProps = {
     endpoint: string
+    enabled?: boolean
+    onSuccess?: (data: any) => void
 }
 
 type actionData = (props: actionDataProps) => void
@@ -16,7 +18,7 @@ type actionDataProps = {
     onSuccess?: (data: any) => void
 }
 
-export function useNodesQuery({ endpoint }: useNodesQueryProps) {
+export function useDataQuery({ endpoint, enabled = true, onSuccess }: useDataQueryProps) {
     const queryClient = useQueryClient()
     const { handleError, showToast } = useToastModel()
 
@@ -28,7 +30,7 @@ export function useNodesQuery({ endpoint }: useNodesQueryProps) {
             handleError(err)
         },
         onSuccess: (data: any, variables: any) => {
-            variables.onSuccess && variables.onSuccess(data?.result)
+            variables.onSuccess && variables.onSuccess(data)
             showToast({
                 summary: variables?.toastMessage || 'successfuly',
                 detail: variables?.toastData,
@@ -37,11 +39,15 @@ export function useNodesQuery({ endpoint }: useNodesQueryProps) {
     }
 
     const { data, isFetching, refetch } = useQuery({
-        queryKey: ['fetch-nodes-data'],
+        queryKey: [`fetch-${endpoint}-data`],
         queryFn: () => axiosData({ endpoint, method: 'GET' }),
         onError: (err) => handleError(err),
+        onSuccess(data) {
+            onSuccess && onSuccess(data)
+        },
         staleTime: 300000, // Data is considered fresh for 5 minutes
         cacheTime: 3600000, // Data is cached for 1 hour
+        enabled: enabled,
     })
 
     const getData = useMutation(

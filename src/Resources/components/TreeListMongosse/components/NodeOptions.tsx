@@ -6,7 +6,7 @@ import _ from 'lodash'
 import { useSelectionModel } from '../state/use-selection-model'
 import { TreeNode } from '../types'
 import AddChildNodeForm from './AddChildNodeForm'
-import { useNodesQuery } from '../hooks/useNodesQuery'
+import { useDataQuery } from '@/Resources/fetchData/useDataQuery'
 
 type NodeOptionsProps = {
     parent: TreeNode
@@ -14,7 +14,7 @@ type NodeOptionsProps = {
 }
 
 export function NodeOptions({ parent, node }: NodeOptionsProps) {
-    const { delete: deleteNode } = useNodesQuery({ endpoint: 'node' })
+    const { delete: deleteNode, isDeleteLoading } = useDataQuery({ endpoint: 'node' })
     const { setOnSelection } = useSelectionModel()
     const [openDialog, setOpenDialog] = useState(false)
     const [nodeToRemoved, setNodeToRemoved] = useState('')
@@ -64,7 +64,7 @@ export function NodeOptions({ parent, node }: NodeOptionsProps) {
                 size='small'
                 severity='danger'
                 onClick={handleRemove}
-                loading={nodeToRemoved === node.id}
+                loading={isDeleteLoading && nodeToRemoved === node._id}
                 disabled={!_.isEmpty(node.children)}
             />
         </Grid>

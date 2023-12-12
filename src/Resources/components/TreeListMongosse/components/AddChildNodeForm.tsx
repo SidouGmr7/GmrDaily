@@ -9,7 +9,7 @@ import _ from 'lodash'
 
 import { useSelectionModel } from '../state/use-selection-model'
 import { TreeNode } from '../types'
-import { useNodesQuery } from '../hooks/useNodesQuery'
+import { useDataQuery } from '@/Resources/fetchData/useDataQuery'
 
 type AddChildNodeFormProps = {
     parent: TreeNode
@@ -24,7 +24,7 @@ export default function AddChildNodeForm({
     setOpenDialog,
 }: AddChildNodeFormProps) {
     const { setOnSelection } = useSelectionModel()
-    const { create: createNode, isAddLoading: isLoadingCreateNode } = useNodesQuery({ endpoint: 'node' })
+    const { create: createNode, isAddLoading: isLoadingCreateNode } = useDataQuery({ endpoint: 'node' })
     const [opentUrlField, setOpentUrlField] = useState(false)
     const formik = useFormik({
         initialValues: {
