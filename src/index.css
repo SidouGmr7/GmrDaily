@@ -71,7 +71,47 @@ body {
     box-shadow: unset !important;
 }
 
-/* .p-tabview .p-tabview-panels {
+/* .p-tree {
+    background-color: #071426 !important;
+    border: unset !important;
+}
+
+.p-treenode-label {
+    color: whitesmoke !important;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+    border-color: #A5B4FC !important;
+  }
+
+.p-tree
+    .p-tree-container
+    .p-treenode
+    .p-treenode-content.p-treenode-selectable:not(.p-highlight):hover {
+    background: rgba(255, 255, 255, 0.03) !important;
+    color: rgba(255, 255, 255, 0.87) !important;
+}
+
+.p-tree .p-tree-container .p-treenode .p-treenode-content:focus {
+    box-shadow: unset !important;
+}
+
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
+    background: rgba(165, 180, 252, 0.16) !important;
+    color: rgba(255, 255, 255, 0.87) !important;
+}
+
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler:hover,
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-treenode-icon:hover {
+    color: rgba(255, 255, 255, 0.87) !important;
+}
+.p-tree .p-tree-container .p-treenode .p-treenode-content .p-tree-toggler:enabled:hover {
+    color: rgba(255, 255, 255, 0.87) !important;
+    border-color: transparent;
+    background: rgba(255, 255, 255, 0.03) !important;
+}
+
+.p-tabview .p-tabview-panels {
     background-color: #111827 !important;
 }
 
@@ -87,25 +127,13 @@ body {
     background-color: #111827 !important;
 }
 
-.p-tree {
-    background-color: #111827 !important;
-    border: unset !important;
-}
-
 .p-inputtext {
     background-color: #111827 !important;
-} */
-/* 
+}
+
 .p-component,
 .p-component * {
     color: aliceblue !important;
-}
-
-.p-tree
-    .p-tree-container
-    .p-treenode
-    .p-treenode-content.p-treenode-selectable:not(.p-highlight):hover {
-    background: #3b82f6 !important;
 }
 
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {

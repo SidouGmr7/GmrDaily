@@ -22,7 +22,8 @@ export const useToastModel = create<ToastModel>((set) => ({
         set((state) => {
             if (state.toast.current) {
                 state.toast.current.show({
-                    severity: props.severity || 'success',
+                    severity: 'success',
+                    summary: 'successfuly',
                     ...props,
                 })
             } else {
@@ -36,7 +37,7 @@ export const useToastModel = create<ToastModel>((set) => ({
             console.error('An error occurred:', error)
             if (state.toast.current) {
                 state.toast.current.show({
-                    summary: error.message || 'there is an error in firebase',
+                    summary: error.message || 'there is an error in mangoDB',
                     severity: 'error',
                 })
             } else {
