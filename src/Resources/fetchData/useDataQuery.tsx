@@ -27,7 +27,7 @@ export function useDataQuery({ endpoint, enabled = true, onSuccess }: useDataQue
             await queryClient.invalidateQueries()
         },
         onError: (err: any) => {
-            handleError(err)
+            handleError(err?.response?.data?.err)
         },
         onSuccess: (data: any, variables: any) => {
             variables.onSuccess && variables.onSuccess(data)

@@ -37,7 +37,7 @@ export const useToastModel = create<ToastModel>((set) => ({
             console.error('An error occurred:', error)
             if (state.toast.current) {
                 state.toast.current.show({
-                    summary: error.message || 'there is an error in mangoDB',
+                    summary: error || 'there is an error in mangoDB',
                     severity: 'error',
                 })
             } else {
