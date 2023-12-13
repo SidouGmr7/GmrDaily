@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { TreeNode } from '../../TreeListMongosse/types'
+import { TreeNode } from '../types'
 
 interface NodeSDataModel {
     nodesDataStored: TreeNode[] | undefined

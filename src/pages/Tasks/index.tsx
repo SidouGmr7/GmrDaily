@@ -1,7 +1,7 @@
 import { Toast } from 'primereact/toast'
 
 import { useToastModel } from '@/Resources/hooks/use-toast-modal'
-import TreeList from '@/Resources/components/TreeListMongosse/TreeList'
+import TreeList from '@/Resources/components/TreeList'
 
 export const Tasks = () => {
     const { toast } = useToastModel()
