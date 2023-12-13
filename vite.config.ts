@@ -11,6 +11,17 @@ export default defineConfig({
     build: {
         outDir: 'build',
         assetsDir: '.',
+        chunkSizeWarningLimit: 1000, // Set your desired limit in kilobytes
+        rollupOptions: {
+          output: {
+            manualChunks(id) {
+              // Return the name of the chunk for the given module
+              if (id.includes('node_modules')) {
+                return 'vendor';
+              }
+            },
+          },
+        },
     },
     resolve: {
         alias: {
