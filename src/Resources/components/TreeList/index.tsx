@@ -8,6 +8,7 @@ import { useSelectionModel } from './state/use-selection-model'
 import { useCheckboxDataModel } from './state/use-checkbox-data-modal'
 import { HeadButtons } from './components/HeadButtons'
 import { useNodesDataModel } from './state/use-nodes-data-modal'
+import './styles.css'
 
 export default function TreeList() {
     const { onSelection } = useSelectionModel()

@@ -1,4 +1,3 @@
-// import "./App.css"
 // import { Daily } from './pages/Daily'
 import { Dashboard } from './pages/Dashboard'
 import { Home } from './pages/Home'
