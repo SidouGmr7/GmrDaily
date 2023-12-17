@@ -30,14 +30,16 @@ export function NodeOptions({ parent, node }: NodeOptionsProps) {
     const handleRemove = (e: any) => {
         e.stopPropagation()
         setNodeToRemoved(node._id || '')
-        deleteNode({
-            id: node._id,
-            toastMessage: 'data deleted',
-            toastData: node.label,
-            onSuccess: (data) => {
-                setLastNodeDeleted(data.removedData)
-            },
-        })
+        if (node._id) {
+            deleteNode({
+                id: node._id,
+                toastMessage: 'data deleted',
+                toastData: node.label,
+                onSuccess: (data) => {
+                    setLastNodeDeleted(data.removedData)
+                },
+            })
+        }
     }
 
     const handleOpenLink = (e: any) => {

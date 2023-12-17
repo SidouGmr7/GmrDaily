@@ -7,7 +7,7 @@ interface NodeSDataModel {
     setLastNodeCreated: (data: TreeNode) => void
     setNodesData: (data: TreeNode[]) => void
     LastNodeDeletedStored: TreeNode | null
-    setLastNodeDeleted: (data: TreeNode) => void
+    setLastNodeDeleted: (data: TreeNode | null) => void
 }
 
 export const useNodesDataModel = create<NodeSDataModel>((set) => ({

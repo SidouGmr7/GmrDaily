@@ -19,14 +19,13 @@ export const HeadButtons = () => {
     const {
         get: getChckBoxs,
         update: updateCheckBoxs,
-        isUpadateLoading,
+        isUpdateLoading,
     } = useDataQuery({
         endpoint: 'checkbox',
         enabled: false,
     })
     const { selectedKeys, setSelectedKeys } = useCheckboxDataModel()
-    const { setLastNodeCreated } = useNodesDataModel()
-    const { setLastNodeDeleted, LastNodeDeletedStored } = useNodesDataModel()
+    const { setLastNodeCreated, setLastNodeDeleted, LastNodeDeletedStored } = useNodesDataModel()
 
     const [openTextField, setOpenTextField] = useState(false)
     const [newLableNode, setNewNodeLabel] = useState('')
@@ -45,6 +44,7 @@ export const HeadButtons = () => {
             toastData: newLableNode,
             onSuccess: (data: any) => {
                 setLastNodeCreated(data)
+                setLastNodeDeleted(null)
                 setOpenTextField(false)
                 setNewNodeLabel('')
             },
@@ -69,9 +69,7 @@ export const HeadButtons = () => {
                 },
                 toastMessage: 'add New head Child',
                 toastData: newLableNode,
-                onSuccess: () => {
-                    setLastNodeDeleted('')
-                },
+                onSuccess: () => setLastNodeDeleted(null),
             })
         }
     }
@@ -102,7 +100,7 @@ export const HeadButtons = () => {
                 icon='pi pi-cloud-download'
                 severity='info'
                 rounded
-                loading={isUpadateLoading}
+                loading={isUpdateLoading}
                 onClick={onSubmitCheckBox}
             />
             <Button

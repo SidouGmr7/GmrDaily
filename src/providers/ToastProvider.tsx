@@ -1,4 +1,4 @@
-import React, { createContext, useRef, useState } from 'react'
+import React, { createContext, useRef } from 'react'
 import { Toast } from 'primereact/toast'
 
 type ToastProps = {
@@ -16,7 +16,6 @@ const ToastContext = createContext<ToastContextProps | any>(undefined)
 
 const ToastProvider = ({ children }: React.PropsWithChildren) => {
     const toast = useRef<Toast | null>(null)
-    const [onSelection, setOnSelection] = useState(true)
 
     const showToast = (props: ToastProps) => {
         if (toast.current) {
@@ -42,9 +41,7 @@ const ToastProvider = ({ children }: React.PropsWithChildren) => {
     }
 
     return (
-        <ToastContext.Provider
-            value={{ toast, showToast, handleError, onSelection, setOnSelection }}
-        >
+        <ToastContext.Provider value={{ toast, showToast, handleError }}>
             {children}
         </ToastContext.Provider>
     )

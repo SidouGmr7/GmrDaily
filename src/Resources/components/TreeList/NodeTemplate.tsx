@@ -8,11 +8,15 @@ import { NodeOptions } from './components/NodeOptions'
 export const nodeTemplate = (node: TreeNode, options: Options) => {
     const { parent, selectionKeys } = options.props
     const { progress } = useProgressNode({ node, selectionKeys })
-        return (
+    return (
         <>
             <Grid width={{ xs: '80%', sm: '100%' }}>
                 <span className={options.className}>
-                { selectionKeys && selectionKeys[node.key]?.checked ? <del>{node.label}</del> : node.label}
+                    {selectionKeys && selectionKeys[node.key]?.checked ? (
+                        <del>{node.label}</del>
+                    ) : (
+                        node.label
+                    )}
                 </span>
             </Grid>
             <Grid container className='justify-end flex items-center space-x-4'>

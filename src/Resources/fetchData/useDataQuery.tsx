@@ -1,34 +1,21 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useToastModel } from '@/Resources/hooks/use-toast-modal'
 import { axiosData } from '@/Resources/fetchData/axios'
+import { METHODE, GET_METHODE, PATCH_METHODE, DELETE_METHODE, POST_METHODE } from './types'
 
-type useDataQueryProps = {
+type DataQueryProps = {
     endpoint: string
     enabled?: boolean
     onSuccess?: (data: any) => void
 }
 
-type actionData = (props: actionDataProps) => void
-
-type actionDataProps = {
-    data?: object
-    id?: string | number
-    toastMessage?: string
-    toastData?: string | number | boolean
-    onSuccess?: (data: any) => void
-}
-
-export function useDataQuery({ endpoint, enabled = true, onSuccess }: useDataQueryProps) {
+export function useDataQuery({ endpoint, enabled = true, onSuccess }: DataQueryProps) {
     const queryClient = useQueryClient()
     const { handleError, showToast } = useToastModel()
 
-    const params = {
-        onSettled: async () => {
-            await queryClient.invalidateQueries()
-        },
-        onError: (err: any) => {
-            handleError(err?.response?.data?.err)
-        },
+    const commonMutationConfig = {
+        onSettled: async () => await queryClient.invalidateQueries(),
+        onError: (err: any) => handleError(err?.response?.data?.err),
         onSuccess: (data: any, variables: any) => {
             variables.onSuccess && variables.onSuccess(data)
             showToast({
@@ -38,66 +25,46 @@ export function useDataQuery({ endpoint, enabled = true, onSuccess }: useDataQue
         },
     }
 
-    const { data, isFetching, refetch } = useQuery({
+    const queryConfig = {
         queryKey: [`fetch-${endpoint}-data`],
         queryFn: () => axiosData({ endpoint, method: 'GET' }),
-        onError: (err) => handleError(err),
-        onSuccess(data) {
-            onSuccess && onSuccess(data)
-        },
+        onError: (err: Error) => handleError(err),
+        onSuccess: (data: object) => onSuccess && onSuccess(data),
         staleTime: 300000, // Data is considered fresh for 5 minutes
         cacheTime: 3600000, // Data is cached for 1 hour
         enabled: enabled,
-    })
+    }
 
-    const getData = useMutation(
-        ({ id }) =>
-            axiosData({
-                endpoint,
-                method: 'GET_ID',
-                id,
-            }),
-        params
-    )
+    const { data, isFetching, refetch } = useQuery(queryConfig)
 
-    const addData = useMutation(
-        ({ data }) =>
-            axiosData({
-                endpoint,
-                method: 'POST',
-                data,
-            }),
-        params
-    )
-    const deleteData = useMutation(
-        ({ id }) =>
-            axiosData({
-                endpoint,
-                method: 'DELETE',
-                id,
-            }),
-        params
-    )
-    const updateData = useMutation(
-        ({ id, data }) =>
-            axiosData({
-                endpoint,
-                method: 'PATCH',
-                id,
-                data,
-            }),
-        params
-    )
+    const createMutation = (method: METHODE) =>
+        useMutation(
+            ({ id, data }) =>
+                axiosData({
+                    endpoint,
+                    method,
+                    id,
+                    data,
+                }),
+            commonMutationConfig
+        )
+
+    const createQuery = createMutation('POST')
+    const updateQuery = createMutation('PATCH')
+    const getQuery = createMutation('GET_ID')
+    const deleteQuery = createMutation('DELETE')
+
     return {
         data,
         isFetching,
-        isAddLoading: addData.isLoading,
-        isDeleteLoading: deleteData.isLoading,
-        isUpadateLoading: updateData.isLoading,
-        create: addData.mutateAsync as actionData,
-        delete: deleteData.mutateAsync as actionData,
-        update: updateData.mutateAsync as actionData,
-        get: getData.mutateAsync as actionData,
+        isAddLoading: createQuery.isLoading,
+        isDeleteLoading: deleteQuery.isLoading,
+        isUpdateLoading: updateQuery.isLoading,
+        isGetLoading: getQuery.isLoading,
+        create: createQuery.mutateAsync as POST_METHODE,
+        delete: deleteQuery.mutateAsync as DELETE_METHODE,
+        update: updateQuery.mutateAsync as PATCH_METHODE,
+        get: getQuery.mutateAsync as GET_METHODE,
         refetch,
     }
 }
