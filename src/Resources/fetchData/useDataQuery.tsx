@@ -15,7 +15,7 @@ export function useDataQuery({ endpoint, enabled = true, onSuccess }: DataQueryP
 
     const commonMutationConfig = {
         onSettled: async () => await queryClient.invalidateQueries(),
-        onError: (err: any) => handleError(err?.response?.data?.err),
+        onError: (err: any) => handleError(err?.response?.data?.err || err?.message),
         onSuccess: (data: any, variables: any) => {
             variables.onSuccess && variables.onSuccess(data)
             showToast({

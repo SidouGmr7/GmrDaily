@@ -2,7 +2,7 @@
 // import { Chart } from "primereact/chart"
 import _ from "lodash"
 
-export function DailyStat() {
+export function FootStat() {
     // const [chartData, setChartData] = useState({})
     // const [chartOptions, setChartOptions] = useState({})
     // const [dataWeek, setDataWeek] = useState<any>([])

@@ -1,4 +1,4 @@
-import { sideBarLink } from '../Routes'
+import { sideBarLink, sideBarLinkFootState } from '../Routes'
 import { useLocation } from 'react-router-dom'
 import { Layout } from '../Resources/layout'
 import { Paper } from '@mui/material'
@@ -21,6 +21,8 @@ const item = {
 export const Dashboard = () => {
     const isMobile = useMediaQuery('(max-width:600px)')
     const path = useLocation().pathname
+    const rootItems = path === '/footstat/country' ? sideBarLinkFootState : sideBarLink
+    
     return (
         <Layout
             childrenStyle={(collapsed) => {
@@ -28,11 +30,11 @@ export const Dashboard = () => {
                     collapsed ? 'md:px-[2%]' : 'pl-[22%] pr-[2%]'
                 } pt-[6%] pb-[2%] transition-all duration-500`
             }}
-            sideBarListItem={sideBarLink}
-            navBarListItem={sideBarLink}
+            sideBarListItem={rootItems}
+            navBarListItem={rootItems}
             defaultHideSideBar={true || isMobile}
         >
-            {sideBarLink.map(({ components, link }, index) => {
+            {rootItems.map(({ components, link }, index) => {
                 if (path === link)
                     return (
                         <motion.div

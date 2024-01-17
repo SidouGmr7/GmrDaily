@@ -1,14 +1,14 @@
 import { useState } from 'react'
-import { DailyList } from './DailyList'
+import { FootList } from './FootList'
 // import { DailyStat } from './DailyStat'
 import { TabView, TabPanel } from 'primereact/tabview'
 
-export const Daily = () => {
+const FootState = () => {
     const [activeIndex, setActiveIndex] = useState(0)
     return (
         <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)} scrollable>
-            <TabPanel header='Daily List'>
-                <DailyList /*setActiveIndex={setActiveIndex} />
+            <TabPanel header='Foot List'>
+                <FootList /*setActiveIndex={setActiveIndex} />
             </TabPanel>
             <TabPanel header='Daily Stat' disabled>
                 <DailyStat /*dataStat={dataStat}*/
@@ -17,3 +17,6 @@ export const Daily = () => {
         </TabView>
     )
 }
+
+
+export default FootState

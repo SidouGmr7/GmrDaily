@@ -7,6 +7,9 @@ export const Home = () => {
                 <Link to='/dashboard/tasks'>
                     <button className='buttonHome'>Dashboard</button>
                 </Link>
+                <Link to='/footstat/country'>
+                    <button className='buttonHome'>Football State</button>
+                </Link>
             </div>
         </div>
     )

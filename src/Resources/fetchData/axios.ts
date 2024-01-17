@@ -1,9 +1,10 @@
 import { BASE_API_URL } from '@/configs'
 import axios from 'axios'
+import { METHODE } from './types'
 
 type axiosDataProps = {
     endpoint: string
-    method: 'GET' | 'POST' | 'DELETE' | 'PATCH' | 'GET_ID'
+    method: METHODE
     data?: object
     id?: string | number
     onSuccess?: (res: any) => void
