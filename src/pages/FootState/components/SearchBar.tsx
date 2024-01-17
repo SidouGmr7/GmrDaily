@@ -27,6 +27,7 @@ export const SearchBar = (props: any) => {
                         id='combo-box-demo'
                         options={filteredData.map((item: any) => item.name)}
                         onChange={(event, newValue) => {
+                            event.preventDefault
                             setNameSearch(newValue)
                         }}
                         renderInput={(params) => (
