@@ -32,7 +32,7 @@ export const TableData = ({ filteredData, headColumn, currentPage, setCurrentPag
         setCurrentPage,
         currentPage,
     })
-    
+
     return (
         <TableContainer
             component={Paper}
@@ -44,6 +44,7 @@ export const TableData = ({ filteredData, headColumn, currentPage, setCurrentPag
             <Table>
                 <TableHead>
                     <TableRow>
+                        <StyledTableCell align='center'>c</StyledTableCell>
                         {headColumn.map((head, index) => (
                             <StyledTableCell align='center' key={index}>
                                 {head}
@@ -52,8 +53,9 @@ export const TableData = ({ filteredData, headColumn, currentPage, setCurrentPag
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {currentItems.map((pokemon) => (
+                    {currentItems.map((pokemon, index) => (
                         <TableRow key={pokemon.id}>
+                            <StyledTableCell align='center'>{index + 1}</StyledTableCell>
                             {Object.values(pokemon).map((value, index) => (
                                 <StyledTableCell align='center' key={index}>
                                     {value}

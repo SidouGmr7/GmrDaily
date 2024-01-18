@@ -11,7 +11,6 @@ export const View = ({ data: newdata }: any) => {
     const data = newdata.map((obj) => {
         return {
             name: obj.name,
-            id: obj.id,
             country: obj.country.name,
             match: obj.country.match,
             goals: obj.country.goals,
@@ -25,7 +24,6 @@ export const View = ({ data: newdata }: any) => {
         useSearchData({ data, setCurrentPage })
 
     const headColumn = [...Object.keys(data[0])]
-    console.log('headColumn: ', headColumn)
 
     return (
         <Box p={{ xs: 2, sm: 5 }} mr='auto' ml='auto' width={{ xs: 'unset', sm: '80%' }}>
